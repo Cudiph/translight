@@ -1,9 +1,9 @@
-<p align="center"><img src="./src/images/translight-128.png" /></p>
-<p align="center">Enlighten your knowledge with new vocabulary you learn. </p>
+<div align="center"><img src="./src/images/translight-128.png" /></div>
+<p align="center">Enlighten your knowledge with new vocabulary you learn.</p>
 
 
 <h1 align="center"> Translight</h1>
-Translight brings google translate in the form of fast and light browser extension. It's open-source and using MIT license so you have the freedom!
+Translight brings google translate in the form of fast and light browser extension powered with svelte. It's open-source and using MIT license so you have the freedom!
 <br />
 <br />
 

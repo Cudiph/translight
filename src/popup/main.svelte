@@ -63,7 +63,7 @@
   textarea[name="query"] {
     resize: vertical;
     background: var(--translight-bg-color);
-    color: white;
+    color: var(--translight-fg-color);
     border: 1px solid var(--translight-fg-color);
     padding: auto;
   }

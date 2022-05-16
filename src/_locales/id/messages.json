@@ -1,0 +1,65 @@
+{
+  "shortName": {
+    "message": "Translight",
+    "description": "Short name of the extension"
+  },
+  "extName": {
+    "message": "Translight - Terjemahan di atas web",
+    "description": "Name of the extension."
+  },
+  "extDesc": {
+    "message": "Membawa google translate di dalam bentuk ekstensi yang cepat dan ringan.",
+    "description": "Description of the extension."
+  },
+  "translateLoading": {
+    "message": "Menerjemahkan..."
+  },
+  "errorTextLimit": {
+    "message": "Text terlalu panjang sehingga tidak bisa diolah."
+  },
+  "unexpectedError": {
+    "message": "Kesalahan tidak terduga"
+  },
+  "frequency": {
+    "message": "Frekuensi"
+  },
+  "translateThisPage": {
+    "message": "Terjemahkan halaman ini"
+  },
+  "options": {
+    "message": "Opsi"
+  },
+  "extensionOptions": {
+    "message": "Opsi Ekstensi"
+  },
+  "openInGoogleTranslate": {
+    "message": "Google Translate"
+  },
+  "seeAlso": {
+    "message": "Lihat juga: "
+  },
+  "translations": {
+    "message": "Terjemahan"
+  },
+  "examples": {
+    "message": "Contoh"
+  },
+  "definitions": {
+    "message": "Definisi"
+  },
+  "targetLanguage": {
+    "message": "Bahasa Tujuan"
+  },
+  "alternative": {
+    "message": "Alternatif"
+  },
+  "openTranslator": {
+    "message": "Buka popup penerjemah"
+  },
+  "optionsOmitReferer": {
+    "message": "Hilangkan Referer header di http request? Bisa menyebabkan text-to-speech di inline popup tidak bekerja setelah menonaktifkan ini (tts di toolbar popup masih bisa bekerja)"
+  },
+  "synonyms": {
+    "message": "Sinonim"
+  }
+}
