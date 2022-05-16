@@ -1,0 +1,13 @@
+:root {
+  --translight-bg-color: #fff;
+  --translight-fg-color: #303030;
+  --translight-accent-blue: #49adff;
+  --translight-accent-green: #79fd79;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --translight-fg-color: #fbfbfe;
+    --translight-bg-color: #1c1b22;
+  }
+}

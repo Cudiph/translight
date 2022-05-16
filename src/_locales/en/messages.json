@@ -1,0 +1,65 @@
+{
+  "shortName": {
+    "message": "Translight",
+    "description": "Short name of the extension"
+  },
+  "extName": {
+    "message": "Translight - Translation Over The Web",
+    "description": "Name of the extension."
+  },
+  "extDesc": {
+    "message": "Brings Google Translate in the form of fast and small extension.",
+    "description": "Description of the extension."
+  },
+  "translateLoading": {
+    "message": "Translating..."
+  },
+  "errorTextLimit": {
+    "message": "The text is too long and therefore cannot be processed."
+  },
+  "unexpectedError": {
+    "message": "Unexpected error"
+  },
+  "frequency": {
+    "message": "Frequency"
+  },
+  "translateThisPage": {
+    "message": "Translate This Page"
+  },
+  "options": {
+    "message": "Options"
+  },
+  "extensionOptions": {
+    "message": "Extension Options"
+  },
+  "openInGoogleTranslate": {
+    "message": "Google Translate"
+  },
+  "seeAlso": {
+    "message": "See Also: "
+  },
+  "translations": {
+    "message": "Translations"
+  },
+  "examples": {
+    "message": "Examples"
+  },
+  "definitions": {
+    "message": "Definitions"
+  },
+  "targetLanguage": {
+    "message": "Target Language"
+  },
+  "alternative": {
+    "message": "Alternative"
+  },
+  "openTranslator": {
+    "message": "Open translator popup"
+  },
+  "optionsOmitReferer": {
+    "message": "Omit Referer header in http request? May cause tts in inline popup not work after disabling it (tts in toolbar popup still work)"
+  },
+  "synonyms": {
+    "message": "Synonyms"
+  }
+}

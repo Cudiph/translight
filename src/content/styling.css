@@ -1,0 +1,32 @@
+.translight-container {
+  position: absolute;
+  color: var(--translight-fg-color);
+  background-color: var(--translight-bg-color);
+  z-index: 134217727;
+  max-width: 50vw;
+  max-height: 60vh;
+  height: 22px;
+  border: 1px solid var(--translight-fg-color);
+}
+
+@media (min-width: 960px) {
+  .translight-container {
+    max-width: 560px;
+  }
+}
+
+.translight-icon {
+  width: 22px;
+  cursor: pointer;
+  height: 22px;
+  z-index: 134217726;
+}
+
+@keyframes translight-fade {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}

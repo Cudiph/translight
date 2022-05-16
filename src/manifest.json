@@ -1,0 +1,100 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extName__",
+  "short_name": "__MSG_shortName__",
+  "version": "0.1",
+  "description": "__MSG_extDesc__",
+  "default_locale": "en",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "translight@ordinarygamers",
+      "strict_min_version": "58.0"
+    }
+  },
+  "icons": {
+    "48": "images/translight-48.png",
+    "64": "images/translight-64.png",
+    "96": "images/translight-96.png",
+    "128": "images/translight-128.png",
+    "256": "images/translight-256.png"
+  },
+  "permissions": [
+    "storage",
+    "tabs",
+    "*://translate.google.com/*",
+    "*://translate.googleapis.com/*"
+  ],
+  "content_scripts": [
+    {
+      "all_frames": true,
+      "matches": [
+        "http://*/*",
+        "https://*/*",
+        "file://*/*"
+      ],
+      "js": [
+        "content/content-script.js"
+      ],
+      "css": [
+        "global.css",
+        "bundle.css",
+        "content/styling.css"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "background": {
+    "scripts": [
+      "background/background.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": {
+      "48": "images/translight-48.png",
+      "64": "images/translight-64.png",
+      "96": "images/translight-96.png",
+      "128": "images/translight-128.png"
+    },
+    "default_title": "Translight",
+    "default_popup": "popup/main.html"
+  },
+  "options_ui": {
+    "page": "options/main.html",
+    "browser_style": true
+  },
+  "page_action": {
+    "browser_style": true,
+    "default_icon": {
+      "48": "images/translight-48.png",
+      "64": "images/translight-64.png",
+      "96": "images/translight-96.png",
+      "128": "images/translight-128.png"
+    },
+    "default_title": "Translate this page",
+    "show_matches": [
+      "https://*/*",
+      "http://*/*"
+    ],
+    "hide_matches": [
+      "https://*.google.com/*",
+      "https://*.translate.goog/*"
+    ]
+  },
+  "web_accessible_resources": [
+    "images/*.png"
+  ],
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "__MSG_openTranslator__"
+    },
+    "_execute_page_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+W"
+      },
+      "description": "__MSG_translateThisPage__"
+    }
+  }
+}
