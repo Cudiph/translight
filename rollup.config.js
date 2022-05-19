@@ -6,6 +6,7 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import copy from 'rollup-plugin-copy';
+import renameMod from './getrid-underscore-plugin';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -74,7 +75,7 @@ const plugins = [
 
 ];
 
-const outputDir = 'dist';
+const outputDir = production ? 'dist' : 'build';
 
 export default [
   {
@@ -93,10 +94,11 @@ export default [
       ...plugins,
       copy({
         targets: [
-          { src: ['src/**/*', '!**/*.{ts,svelte,xcf}'], dest: 'dist', expandDirectories: true, onlyFiles: true },
+          { src: ['src/**/*', '!**/*.{ts,svelte,xcf}'], dest: outputDir, expandDirectories: true, onlyFiles: true },
         ],
         flatten: false
       }),
+      renameMod('ඞ', !production)
     ],
     watch: {
       clearScreen: false
