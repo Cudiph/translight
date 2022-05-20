@@ -1,0 +1,16 @@
+{
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "__MSG_openTranslator__"
+    },
+    "translate-this-page": {
+      "suggested_key": {
+        "default": "Alt+Shift+W"
+      },
+      "description": "__MSG_translateThisPage__"
+    }
+  }
+}

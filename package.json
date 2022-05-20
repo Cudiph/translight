@@ -13,11 +13,12 @@
     "url": "git+https://github.com/Cudiph/translight.git"
   },
   "scripts": {
-    "build": "rollup -c",
+    "build": "npm run build:plugin && rollup -c && npm run build:manifest",
     "dev": "rollup -c -w",
     "check": "svelte-check --tsconfig ./tsconfig.json",
     "start": "exit 0",
-    "build:plugin": "tsc getrid-underscore-plugin.ts --moduleResolution node -m es6"
+    "build:plugin": "tsc getrid-underscore-plugin.ts --moduleResolution node -m es6",
+    "build:manifest": "node script/build.js"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",

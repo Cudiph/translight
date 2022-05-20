@@ -7,6 +7,7 @@ import typescript from '@rollup/plugin-typescript';
 import css from 'rollup-plugin-css-only';
 import copy from 'rollup-plugin-copy';
 import renameMod from './getrid-underscore-plugin';
+import { writeFileSync } from 'fs';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -48,7 +49,12 @@ const plugins = [
   }),
   // we'll extract any component CSS out into
   // a separate file - better for performance
-  css({ output: 'bundle.css' }),
+  css({
+    output: (styles) => {
+      writeFileSync(`${outChromium}/bundle.css`, styles);
+      writeFileSync(`${outFirefox}/bundle.css`, styles);
+    }
+  }),
 
   // If you have external dependencies installed from
   // npm, you'll most likely need these plugins. In
@@ -76,6 +82,8 @@ const plugins = [
 ];
 
 const outputDir = production ? 'dist' : 'build';
+const outChromium = `${outputDir}/chromium`;
+const outFirefox = `${outputDir}/firefox`;
 
 export default [
   {
@@ -84,17 +92,25 @@ export default [
       'src/popup/main.ts',
       'src/options/main.ts',
     ],
-    output: {
-      ...output,
-      dir: outputDir,
-      preserveModules: true,
-      preserveModulesRoot: 'src',
-    },
+    output: [
+      {
+        ...output,
+        dir: outChromium,
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+      },
+      {
+        ...output,
+        dir: outFirefox,
+        preserveModules: true,
+        preserveModulesRoot: 'src',
+      }
+    ],
     plugins: [
       ...plugins,
       copy({
         targets: [
-          { src: ['src/**/*', '!**/*.{ts,svelte,xcf}'], dest: outputDir, expandDirectories: true, onlyFiles: true },
+          { src: ['src/**/*', '!**/*.{ts,svelte,xcf}', '!**/manifest*.json'], dest: [outChromium, outFirefox], expandDirectories: true, onlyFiles: true },
         ],
         flatten: false
       }),
@@ -106,10 +122,15 @@ export default [
   },
   {
     input: 'src/content/content-script.ts',
-    output: {
-      ...output,
-      file: `${outputDir}/content/content-script.js`
-    },
+    output: [
+      {
+        ...output,
+        file: `${outChromium}/content/content-script.js`
+      }, {
+        ...output,
+        file: `${outFirefox}/content/content-script.js`
+      }
+    ],
     plugins: [
       ...plugins,
     ],
