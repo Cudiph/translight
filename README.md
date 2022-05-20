@@ -1,6 +1,10 @@
-<div align="center"><img src="./src/images/translight-128.png" /></div>
+<div align="center"><img src="./src/images/translight-128.png" alt="logo" /></div>
 <p align="center">Enlighten your knowledge with new vocabulary you learn.</p>
+<br />
 
+<div align="center">
+  <a href="https://addons.mozilla.org/firefox/addon/translight/"><img height="60" src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Get Translight for Firefox" /></a>
+</div>
 
 <h1 align="center"> Translight</h1>
 Translight brings google translate in the form of fast and light browser extension powered with svelte. It's open-source and using MIT license so you have the freedom!

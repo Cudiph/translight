@@ -1,0 +1,40 @@
+{
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "translight@ordinarygamers",
+      "strict_min_version": "80.0"
+    }
+  },
+  "page_action": {
+    "browser_style": true,
+    "default_icon": {
+      "48": "images/translight-48.png",
+      "64": "images/translight-64.png",
+      "96": "images/translight-96.png",
+      "128": "images/translight-128.png"
+    },
+    "default_title": "Translate this page",
+    "show_matches": [
+      "https://*/*",
+      "http://*/*"
+    ],
+    "hide_matches": [
+      "https://*.google.com/*",
+      "https://*.translate.goog/*"
+    ]
+  },
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+C"
+      },
+      "description": "__MSG_openTranslator__"
+    },
+    "_execute_page_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+W"
+      },
+      "description": "__MSG_translateThisPage__"
+    }
+  }
+}

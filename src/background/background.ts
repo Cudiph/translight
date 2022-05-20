@@ -33,13 +33,29 @@ browser.windows.onFocusChanged.addListener(async (wid) => {
 });
 
 // address bar button
-browser.pageAction.onClicked.addListener(async (tab) => {
+browser.pageAction?.onClicked.addListener(async (tab) => {
   const props = {
     sl: "auto",
     tl: (await browser.storage.local.get('targetLang')).targetLang,
     u: tab.url,
   };
-  
+
   const link = `https://translate.google.com/translate?sl=auto&tl=${props.tl}&atl=ja&u=${tab.url}`;
   browser.tabs.create({ url: link });
+});
+
+browser.commands.onCommand.addListener(async (cmd) => {
+  if (cmd === 'translate-this-page') {
+    const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
+    if (!tab) return;
+    const props = {
+      sl: "auto",
+      tl: (await browser.storage.local.get('targetLang')).targetLang,
+      u: tab.url,
+    };
+
+    const link = `https://translate.google.com/translate?sl=auto&tl=${props.tl}&atl=ja&u=${tab.url}`;
+    browser.tabs.create({ url: link });
+
+  }
 });

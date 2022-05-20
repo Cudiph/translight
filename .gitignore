@@ -4,3 +4,7 @@
 /dist
 /.vscode
 /node_modules
+/build
+
+# custom plugin build
+getrid-underscore-plugin.js
