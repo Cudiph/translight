@@ -56,9 +56,6 @@
   "openTranslator": {
     "message": "Open translator popup"
   },
-  "optionsOmitReferer": {
-    "message": "Omit Referer header in http request? May cause tts in inline popup not work after disabling it (disable it if you can't login to a website or website do something different)"
-  },
   "synonyms": {
     "message": "Synonyms"
   }

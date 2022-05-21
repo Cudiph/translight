@@ -141,12 +141,3 @@ document.addEventListener('keydown', (e) => {
   }
   if (tooltip) tooltip.remove();
 });
-
-browser.storage.local.get('noReferer').then(res => {
-  if (!res.noReferer) return;
-  const metaNoRef = document.createElement('meta');
-  metaNoRef.name = "referrer";
-  metaNoRef.content = "no-referrer";
-  document.head.appendChild(metaNoRef);
-});
-

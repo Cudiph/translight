@@ -5,7 +5,6 @@ browser.runtime.onInstalled.addListener(({ reason }) => {
     browser.storage.local.set({
       targetLang: 'en',
       altTargetLang: 'zh',
-      noReferer: true,
     });
   }
 });

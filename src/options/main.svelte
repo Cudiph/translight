@@ -9,12 +9,10 @@
   let config = {
     tl: "",
     atl: "",
-    noReferer: true,
   };
-  bslocal.get(["targetLang", "altTargetLang", "noReferer"]).then((res) => {
+  bslocal.get(["targetLang", "altTargetLang"]).then((res) => {
     config.tl = res.targetLang;
     config.atl = res.altTargetLang;
-    config.noReferer = res.noReferer;
   });
 
   function updateTargetLang(e: Event) {
@@ -53,12 +51,6 @@
     });
   }
 
-  function updateNoRef(e: Event) {
-    const checked = (e.target as HTMLInputElement).checked;
-    browser.storage.local.set({
-      noReferer: checked,
-    });
-  }
 </script>
 
 {#await config then res}
@@ -85,18 +77,6 @@
           {/each}
         </select>
       </div>
-      <div class="opt-row">
-        <input
-          type="checkbox"
-          name="noref"
-          id="noref"
-          checked={res.noReferer}
-          on:change={updateNoRef}
-        />
-        <label for="noref"
-          >{gm("optionsOmitReferer")}</label
-        >
-      </div>
     </main>
   </div>
 {/await}
@@ -114,8 +94,5 @@
   }
   .opt-row label {
     display: block;
-  }
-  label[for="noref"] {
-    display: inline;
   }
 </style>
