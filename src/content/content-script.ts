@@ -1,5 +1,4 @@
 import Result from '../popup/Result.svelte';
-import gtrans from '../lib/gtrans';
 
 const gm = browser.i18n.getMessage;
 
@@ -122,7 +121,7 @@ document.addEventListener("mouseup", (e) => {
     container.style.padding = '5px';
     container = document.body.appendChild(container);
     const { targetLang } = await browser.storage.local.get('targetLang');
-    const translated = gtrans(selected, { to: targetLang });
+    const translated = browser.runtime.sendMessage({ name: 'gtrans-fetch', text: selected, gtransOptions: { to: targetLang } });
 
     const resComponent = new Result({
       target: container,

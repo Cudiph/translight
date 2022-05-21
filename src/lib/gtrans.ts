@@ -346,12 +346,12 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
 
 export default translate;
 
-translate.validateLangId = (langCode: string): string | boolean => {
+export const validateLangId = (langCode: string): string | boolean => {
   if (typeof langCode !== 'string') return false;
   if (langCode in langId) return langId[langCode]; else return false;
 };
 
-translate.getTTSLink = (query: string, languageId: string): string => {
+export const getTTSLink = (query: string, languageId: string): string => {
   const props = stringify({
     ie: 'UTF-8',
     tl: languageId,
@@ -363,7 +363,7 @@ translate.getTTSLink = (query: string, languageId: string): string => {
   return url;
 };
 
-translate.getLangId = (langName: string): string => {
+export const getLangId = (langName: string): string => {
   for (const key in langId) {
     if (langName.toLowerCase() === langId[key].toLowerCase()) {
       return key;
