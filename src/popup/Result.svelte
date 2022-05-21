@@ -39,7 +39,7 @@
         text: text,
         langId,
       });
-      
+
       return dataURI;
     }
 
@@ -48,6 +48,9 @@
       srcPlaying = false;
       destPlaying = false;
     }
+    if (forComp === "src") srcPlaying = true;
+    else destPlaying = true;
+
     splittedQuery = splitTextToList(query, 200);
 
     const dataURI = await getDataURI(splittedQuery[0]);
