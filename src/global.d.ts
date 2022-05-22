@@ -6,4 +6,5 @@ interface LocalStorage {
   altTargetLang?: string;
   windowURL?: string;
   selection?: string;
+  hostnames: string[]; // blocklisted hostname
 }

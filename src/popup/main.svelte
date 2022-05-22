@@ -23,7 +23,7 @@
   function handleInput() {
     clearTimeout(translateTimeout);
     translateTimeout = setTimeout(() => {
-      if ($query === "") return;
+      if ($query.trim() === "") return;
       gtransPromise = gtrans($query, { to: targetLang });
     }, 1000);
   }

@@ -1,11 +1,14 @@
 import gtrans, { getTTSLink } from '../lib/gtrans';
-browser.runtime.onInstalled.addListener(({ reason }) => {
-  if (reason == "install") {
+browser.runtime.onInstalled.addListener(async ({ reason }) => {
+  const requiredKey = await browser.storage.local.get(['targetLang', 'altTargetLang', 'hostnames']);
+  browser.storage.local.set({
+    targetLang: requiredKey.targetLang || 'en',
+    altTargetLang: requiredKey.altTargetLang || 'zh',
+    hostnames: requiredKey.hostnames || [],
+  });
+
+  if (reason === "install") {
     browser.runtime.openOptionsPage();
-    browser.storage.local.set({
-      targetLang: 'en',
-      altTargetLang: 'zh',
-    });
   }
 });
 
