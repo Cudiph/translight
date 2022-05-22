@@ -56,9 +56,6 @@
   "openTranslator": {
     "message": "Buka popup penerjemah"
   },
-  "optionsOmitReferer": {
-    "message": "Hilangkan Referer header di http request? Bisa menyebabkan text-to-speech di inline popup tidak bekerja setelah menonaktifkan ini (matikan bila tidak bisa login di website atau website berlaku yang aneh-aneh)"
-  },
   "synonyms": {
     "message": "Sinonim"
   }

@@ -1,7 +1,18 @@
 <script lang="ts">
   import { query } from "./store";
   import Collapser from "../lib/Collapser.svelte";
-  import gtrans, { langId, ReadableFormat } from "../lib/gtrans";
+  import { getLangId, langId, ReadableFormat } from "../lib/gtrans";
+
+  const gtrans = async function (
+    text: string,
+    gtransOptions: Record<string, any>
+  ) {
+    return browser.runtime.sendMessage({
+      name: "gtrans-fetch",
+      text,
+      gtransOptions,
+    });
+  };
 
   export let gtransRes: Promise<ReadableFormat>;
   export let targetLang: string;
@@ -17,22 +28,40 @@
   let srcPlaying = false;
   let destPlaying = false;
 
-  function playTTS(query: string, langId: string, forComp: "src" | "dest") {
+  async function playTTS(
+    query: string,
+    langId: string,
+    forComp: "src" | "dest"
+  ) {
+    async function getDataURI(text: string) {
+      const dataURI: string = await browser.runtime.sendMessage({
+        name: "tts-fetch",
+        text: text,
+        langId,
+      });
+
+      return dataURI;
+    }
+
     if (audio) {
       audio.pause();
       srcPlaying = false;
       destPlaying = false;
     }
+    if (forComp === "src") srcPlaying = true;
+    else destPlaying = true;
+
     splittedQuery = splitTextToList(query, 200);
-    const ttsLink = gtrans.getTTSLink(splittedQuery[0], langId);
+
+    const dataURI = await getDataURI(splittedQuery[0]);
     audio = new Audio();
-    audio.src = ttsLink;
+    audio.src = dataURI;
     audio.crossOrigin = "anonymous";
     audio.onplay = () => {
       if (forComp === "src") srcPlaying = true;
       else destPlaying = true;
     };
-    audio.onended = () => {
+    audio.onended = async () => {
       // play next audio when ended
       splittedQuery.shift();
       if (splittedQuery.length === 0) {
@@ -40,14 +69,13 @@
         else destPlaying = false;
         return;
       }
-      const ttsLink = gtrans.getTTSLink(splittedQuery[0], langId);
-      audio.src = ttsLink;
+      audio.src = await getDataURI(splittedQuery[0]);
       audio.play();
     };
     audio.onerror = () => {
       srcPlaying = false;
       destPlaying = false;
-    }
+    };
     audio.play();
   }
 
@@ -146,8 +174,8 @@
 {#await gtransRes}
   <p style="margin: 0; padding: 0;">{gm("translateLoading")}</p>
 {:then res}
-  {#if gtrans.getLangId(res.altFrom) === gtrans.getLangId(res.to)}
-    {switchLang(gtrans.getLangId(res.from), res.sourceText)}
+  {#if getLangId(res.altFrom) === res.to}
+    {switchLang(getLangId(res.from), res.sourceText)}
   {/if}
   <div class="translight-result">
     <h3
@@ -165,8 +193,8 @@
       on:change={(e) =>
         updateSource(
           e,
-          gtrans.getLangId(res.altFrom),
-          gtrans.getLangId(res.to),
+          getLangId(res.altFrom),
+          getLangId(res.to),
           res.sourceText,
           res.translated
         )}
@@ -174,7 +202,7 @@
     >
       {#each Object.entries(langId) as [code, language]}
         <option
-          selected={code === gtrans.getLangId(res.altFrom) ? true : false}
+          selected={code === getLangId(res.altFrom) ? true : false}
           value={code}>{language}</option
         >
       {/each}
@@ -189,8 +217,7 @@
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        on:click={() =>
-          playTTS(res.sourceText, gtrans.getLangId(res.altFrom), "src")}
+        on:click={() => playTTS(res.sourceText, getLangId(res.altFrom), "src")}
       >
         <!-- the icon is "stolen" from https://github.com/Templarian/MaterialDesign-SVG -->
         <path
@@ -240,15 +267,15 @@
       on:change={(e) =>
         updateDestination(
           e,
-          gtrans.getLangId(res.altFrom),
-          gtrans.getLangId(res.to),
+          getLangId(res.altFrom),
+          getLangId(res.to),
           res.sourceText,
           res.translated
         )}
     >
       {#each Object.entries(langId) as [code, language]}
         <option
-          selected={code === gtrans.getLangId(res.to) ? true : false}
+          selected={code === getLangId(res.to) ? true : false}
           value={code}>{language}</option
         >
       {/each}
@@ -264,8 +291,7 @@
         height="24"
         viewBox="0 0 24 24"
         style="float: right;"
-        on:click={() =>
-          playTTS(res.translated, gtrans.getLangId(res.to), "dest")}
+        on:click={() => playTTS(res.translated, getLangId(res.to), "dest")}
         ><path
           class="translight-clickable"
           d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
