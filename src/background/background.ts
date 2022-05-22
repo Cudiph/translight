@@ -69,6 +69,7 @@ function blobToDataURL(blob: Blob) {
   });
 }
 
+// handle all the request from content script
 browser.runtime.onMessage.addListener(async (msg, sender, sendRes) => {
   if (msg.name === 'tts-fetch') {
     const ttsLink = getTTSLink(msg.text, msg.langId);
