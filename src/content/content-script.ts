@@ -91,7 +91,12 @@ function getHeight() {
 let container: HTMLDivElement;
 let tooltip: HTMLDivElement;
 let isTranslating = false;
-document.addEventListener("mouseup", (e) => {
+document.addEventListener("mouseup", async (e) => {
+  const activetab: browser.tabs.Tab = await browser.runtime.sendMessage({ name: 'active-tab' });
+  const { hostnames } = await browser.storage.local.get('hostnames'); // blocklist
+  const hostname = new URL(activetab.url).hostname;
+  if (hostnames.includes(hostname)) return;
+
   const selected = getSelectionText();
 
   if (tooltip && !tooltip.contains(e.target as HTMLElement)) {

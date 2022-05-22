@@ -85,5 +85,8 @@ browser.runtime.onMessage.addListener(async (msg, sender, sendRes) => {
 
   } else if (msg.name === 'gtrans-fetch') {
     return gtrans(msg.text, msg.gtransOptions);
+  } else if (msg.name === 'active-tab') {
+    const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
+    return tab;
   }
 });
