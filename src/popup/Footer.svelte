@@ -75,4 +75,8 @@
     display: inline;
     cursor: pointer;
   }
+
+  a:hover {
+    text-decoration: underline;
+  }
 </style>

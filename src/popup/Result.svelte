@@ -174,7 +174,7 @@
 {#await gtransRes}
   <p style="margin: 0; padding: 0;">{gm("translateLoading")}</p>
 {:then res}
-  {#if getLangId(res.altFrom) === res.to}
+  {#if res.altFrom === res.to}
     {switchLang(getLangId(res.from), res.sourceText)}
   {/if}
   <div class="translight-result">

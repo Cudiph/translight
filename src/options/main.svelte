@@ -9,10 +9,12 @@
   let config = {
     tl: "",
     atl: "",
+    hostnames: [],
   };
-  bslocal.get(["targetLang", "altTargetLang"]).then((res) => {
+  bslocal.get(["targetLang", "altTargetLang", "hostnames"]).then((res) => {
     config.tl = res.targetLang;
     config.atl = res.altTargetLang;
+    config.hostnames = res.hostnames;
   });
 
   function updateTargetLang(e: Event) {
@@ -51,6 +53,24 @@
     });
   }
 
+  function updateBlocklist(e: Event) {
+    const value = (e.target as HTMLTextAreaElement).value;
+    const blocklist = value
+      .trim()
+      .replace(/(^\s+|[^\S\n]+)/gm, "")
+      .split("\n");
+    browser.storage.local.set({
+      hostnames: blocklist,
+    });
+  }
+
+  let timer: NodeJS.Timeout;
+  function handleInput(e: Event) {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      updateBlocklist(e);
+    }, 500);
+  }
 </script>
 
 {#await config then res}
@@ -76,6 +96,17 @@
             </option>
           {/each}
         </select>
+      </div>
+      <div class="opt-row">
+        <label for="blocklist">{gm("disabledIn")}: </label>
+        <textarea
+          on:input={handleInput}
+          name="blocklist"
+          id="blocklist"
+          cols="45"
+          rows="10"
+          value={res.hostnames.join("\n")}
+        />
       </div>
     </main>
   </div>
