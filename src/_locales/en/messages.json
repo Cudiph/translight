@@ -58,5 +58,8 @@
   },
   "synonyms": {
     "message": "Synonyms"
+  },
+  "disabledIn": {
+    "message": "Extension Disabled In"
   }
 }

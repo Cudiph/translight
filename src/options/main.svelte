@@ -55,7 +55,10 @@
 
   function updateBlocklist(e: Event) {
     const value = (e.target as HTMLTextAreaElement).value;
-    const blocklist = value.trim().replace(/(^\s+|[^\S\n]+)/gm, '').split("\n");
+    const blocklist = value
+      .trim()
+      .replace(/(^\s+|[^\S\n]+)/gm, "")
+      .split("\n");
     browser.storage.local.set({
       hostnames: blocklist,
     });
@@ -95,7 +98,7 @@
         </select>
       </div>
       <div class="opt-row">
-        <label for="blocklist">Extension disabled in:</label>
+        <label for="blocklist">{gm("disabledIn")}: </label>
         <textarea
           on:input={handleInput}
           name="blocklist"
