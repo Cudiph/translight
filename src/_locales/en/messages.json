@@ -61,5 +61,8 @@
   },
   "disabledIn": {
     "message": "Extension Disabled In"
+  },
+  "activationSwitch": {
+    "message": "Enable/Disable the tooltip popup"
   }
 }

@@ -1,7 +1,8 @@
 import gtrans, { getTTSLink } from '../lib/gtrans';
+const bslocal = browser.storage.local;
 browser.runtime.onInstalled.addListener(async ({ reason }) => {
-  const requiredKey = await browser.storage.local.get(['targetLang', 'altTargetLang', 'hostnames']);
-  browser.storage.local.set({
+  const requiredKey = await bslocal.get(['targetLang', 'altTargetLang', 'hostnames']);
+  bslocal.set({
     targetLang: requiredKey.targetLang || 'en',
     altTargetLang: requiredKey.altTargetLang || 'zh',
     hostnames: requiredKey.hostnames || [],
@@ -19,7 +20,7 @@ browser.tabs.onActivated.addListener(activeInfo => {
 
 // for updating windowURL
 browser.tabs.onUpdated.addListener((id, info, tab) => {
-  browser.storage.local.set({
+  bslocal.set({
     windowURL: tab.url,
   });
 });
@@ -29,7 +30,7 @@ browser.windows.onFocusChanged.addListener(async (wid) => {
   const win = await browser.windows.get(wid, { populate: true });
 
   const activeTab = win.tabs.find(el => el.active === true);
-  browser.storage.local.set({
+  bslocal.set({
     windowURL: activeTab.url,
   });
 
@@ -39,7 +40,7 @@ browser.windows.onFocusChanged.addListener(async (wid) => {
 browser.pageAction?.onClicked.addListener(async (tab) => {
   const props = {
     sl: "auto",
-    tl: (await browser.storage.local.get('targetLang')).targetLang,
+    tl: (await bslocal.get('targetLang')).targetLang,
     u: tab.url,
   };
 
@@ -48,18 +49,30 @@ browser.pageAction?.onClicked.addListener(async (tab) => {
 });
 
 browser.commands.onCommand.addListener(async (cmd) => {
+
   if (cmd === 'translate-this-page') {
     const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
     if (!tab) return;
     const props = {
       sl: "auto",
-      tl: (await browser.storage.local.get('targetLang')).targetLang,
+      tl: (await bslocal.get('targetLang')).targetLang,
       u: tab.url,
     };
 
     const link = `https://translate.google.com/translate?sl=auto&tl=${props.tl}&atl=ja&u=${tab.url}`;
     browser.tabs.create({ url: link });
 
+  } else if (cmd === 'activation-switch') {
+    const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
+    const hostname = new URL(tab.url).hostname;
+    let { hostnames } = await bslocal.get('hostnames');
+
+    if (hostnames.includes(hostname)) {
+      hostnames = hostnames.filter((hn: string) => hn !== hostname);
+    } else {
+      hostnames.push(hostname);
+    }
+    bslocal.set({ hostnames });
   }
 });
 

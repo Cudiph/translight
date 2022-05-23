@@ -11,6 +11,9 @@
         "default": "Alt+Shift+W"
       },
       "description": "__MSG_translateThisPage__"
+    },
+    "activation-switch": {
+      "description": "__MSG_activationSwitch__"
     }
   }
 }

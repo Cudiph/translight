@@ -61,5 +61,8 @@
   },
   "disabledIn": {
     "message": "Ekstensi dimatikan di"
+  },
+  "activationSwitch": {
+    "message": "Aktifkan/Matikan icon yang muncul"
   }
 }
