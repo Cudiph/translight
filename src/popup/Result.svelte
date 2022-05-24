@@ -188,7 +188,7 @@
       {res.altFrom}
     </h3>
     <select
-      class="translight-hidden language-option"
+      class="translight-clickable translight-hidden language-option"
       name="srclang"
       on:change={(e) =>
         updateSource(
@@ -262,7 +262,7 @@
       {res.to}
     </h3>
     <select
-      class="translight-hidden language-option"
+      class="translight-clickable translight-hidden language-option"
       name="destlang"
       bind:this={targetOptions}
       on:change={(e) =>
