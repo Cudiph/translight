@@ -202,6 +202,7 @@
     >
       {#each Object.entries(langId) as [code, language]}
         <option
+          class="translight-clickable"
           selected={code === getLangId(res.altFrom) ? true : false}
           value={code}>{language}</option
         >
@@ -275,6 +276,7 @@
     >
       {#each Object.entries(langId) as [code, language]}
         <option
+          class="translight-clickable"
           selected={code === getLangId(res.to) ? true : false}
           value={code}>{language}</option
         >
