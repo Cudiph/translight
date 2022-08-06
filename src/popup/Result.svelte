@@ -257,7 +257,7 @@
     {#if res.pronunciation}
       <p class="opacity-60">{res.pronunciation}</p>
     {:else if res.translit}
-      <p class="opacity-60">{res.translit}</p>
+      <p class="opacity-60">{@html sanitizeAndGiveBreak(res.translit)}</p>
     {/if}
 
     <h3
@@ -328,7 +328,7 @@
     {#if res.destPronunciation}
       <p class="opacity-60">{res.destPronunciation}</p>
     {:else if res.destTranslit}
-      <p class="opacity-60">{res.destTranslit}</p>
+      <p class="opacity-60">{@html sanitizeAndGiveBreak(res.destTranslit)}</p>
     {/if}
 
     {#if res.related}

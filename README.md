@@ -4,6 +4,7 @@
 
 <div align="center">
   <a href="https://addons.mozilla.org/firefox/addon/translight/"><img height="60" src="https://blog.mozilla.org/addons/files/2020/04/get-the-addon-fx-apr-2020.svg" alt="Get Translight for Firefox" /></a>
+  <a href="https://microsoftedge.microsoft.com/addons/detail/translight-translation-/gdofpflfkakglilgflgfdphcmjijcdbe"><img height="61" src="https://getbadgecdn.azureedge.net/images/en-us%20light.svg" alt="Get Translight for Edge"></a>
 </div>
 
 <h1 align="center"> Translight</h1>
