@@ -2,6 +2,7 @@
   import { query } from "./store";
   import Collapser from "../lib/Collapser.svelte";
   import { getLangId, langId, ReadableFormat } from "../lib/gtrans";
+  import DOMPurify from 'dompurify';
 
   const gtrans = async function (
     text: string,
@@ -169,6 +170,11 @@
       gtransRes = gtrans(sourceText, { to: targetLang });
     }
   }
+
+  function sanitizeAndGiveBreak(text: string) {
+    const newText = text.replace(/\n/g, '<br />');
+    return DOMPurify.sanitize(newText);
+  }
 </script>
 
 {#await gtransRes}
@@ -243,9 +249,9 @@
       >
     {/if}
     {#if res.isCorrected}
-      <p>{@html res.corrected}</p>
+      <p>{@html sanitizeAndGiveBreak(res.corrected)}</p>
     {:else}
-      <p>{res.sourceText}</p>
+      <p>{@html sanitizeAndGiveBreak(res.sourceText)}</p>
     {/if}
 
     {#if res.pronunciation}
@@ -316,7 +322,7 @@
       >
     {/if}
 
-    <p>{res.translated}</p>
+    <p>{@html sanitizeAndGiveBreak(res.translated)}</p>
     {#if res.destPronunciation}
       <p class="opacity-60">{res.destPronunciation}</p>
     {/if}
