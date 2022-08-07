@@ -2,6 +2,7 @@
   "extends": "@tsconfig/svelte/tsconfig.json",
   "compilerOptions": {
     "isolatedModules": false,
+    "lib": ["dom", "es6"]
   },
   "include": [
     "src/**/*"
