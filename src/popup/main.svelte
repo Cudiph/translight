@@ -66,12 +66,10 @@
     color: var(--translight-fg-color);
     border: 1px solid var(--translight-fg-color);
     padding: auto;
-  }
-  textarea[name="query"]:focus {
-    border: 1px solid var(--translight-accent-blue);
+    outline: none;
   }
 
   #query {
-    width: 98%;
+    width: calc(100% - 5px);
   }
 </style>

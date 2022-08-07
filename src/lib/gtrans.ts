@@ -150,6 +150,8 @@ export interface ReadableFormat {
   corrected?: string;
   pronunciation?: string;
   destPronunciation?: string;
+  translit?: string;
+  destTranslit?: string;
   definitions?: PartOfSpeechDefinition;
   translations?: PartOfSpeechTranslation;
   synonyms?: {
@@ -208,6 +210,8 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
         readable.pronunciation = jsonRes[0][1][3] || '';
       if (jsonRes[0][1] && jsonRes[0][1][2])
         readable.destPronunciation = jsonRes[0][1][2];
+      if (iter[2]) readable.destTranslit = iter[2];
+      if (iter[3]) readable.translit = iter[3];
     }
   }
 
