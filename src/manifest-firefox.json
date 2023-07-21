@@ -1,8 +1,7 @@
 {
   "browser_specific_settings": {
     "gecko": {
-      "id": "translight@ordinarygamers",
-      "strict_min_version": "80.0"
+      "id": "translight@ordinarygamers"
     }
   },
   "page_action": {

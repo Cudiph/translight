@@ -1,3 +1,4 @@
+import './main.css'
 import Popup from './main.svelte';
 
 const app = new Popup({

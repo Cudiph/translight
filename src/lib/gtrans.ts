@@ -1,4 +1,4 @@
-import { stringify } from "query-string";
+import qstr from "query-string";
 
 // taken from https://cloud.google.com/translate/docs/languages
 export const langId: { [key: string]: string; } = {
@@ -171,7 +171,7 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
     contents = ['t', 'at', 'bd', 'ex', 'ld', 'md', 'qca', 'rw', 'rm', 'ss'],
   } = options;
 
-  const property = stringify({
+  const property = qstr.stringify({
     client: 'gtx',
     sl: from,
     tl: to,
@@ -356,7 +356,7 @@ export const validateLangId = (langCode: string): string | boolean => {
 };
 
 export const getTTSLink = (query: string, languageId: string): string => {
-  const props = stringify({
+  const props = qstr.stringify({
     ie: 'UTF-8',
     tl: languageId,
     client: 'tw-ob',

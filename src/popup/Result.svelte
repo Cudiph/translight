@@ -1,7 +1,8 @@
 <script lang="ts">
   import { query } from "./store";
   import Collapser from "../lib/Collapser.svelte";
-  import { getLangId, langId, ReadableFormat } from "../lib/gtrans";
+  import { getLangId, langId } from "../lib/gtrans";
+  import type {  ReadableFormat } from '../lib/gtrans';
   import DOMPurify from 'dompurify';
 
   const gtrans = async function (

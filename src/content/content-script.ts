@@ -1,3 +1,4 @@
+import './styling.css'
 import Result from '../popup/Result.svelte';
 
 const gm = browser.i18n.getMessage;

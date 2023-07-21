@@ -1,6 +1,7 @@
 <script lang="ts">
   import { query } from "./store";
-  import gtrans, { ReadableFormat } from "../lib/gtrans";
+  import gtrans from "../lib/gtrans";
+  import type { ReadableFormat } from "../lib/gtrans";
   import Footer from "./Footer.svelte";
   import Header from "./Header.svelte";
   import Result from "./Result.svelte";

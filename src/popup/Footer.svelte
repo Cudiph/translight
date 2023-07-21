@@ -1,7 +1,7 @@
 <!-- svelte-ignore a11y-invalid-attribute -->
 <script lang="ts">
   import { query } from "./store";
-  import { stringify } from "query-string";
+  import qstr from "query-string";
 
   let windowURL: Promise<string>;
   let targetLang: Promise<string>;
@@ -19,7 +19,7 @@
 
   function translateThisPage(e: Event) {
     e.preventDefault();
-    const props = stringify({
+    const props = qstr.stringify({
       sl: "auto",
       tl: targetLang,
       u: windowURL,
@@ -74,6 +74,10 @@
     text-decoration: none;
     display: inline;
     cursor: pointer;
+  }
+
+  a {
+    font-size: 13px;
   }
 
   a:hover {
