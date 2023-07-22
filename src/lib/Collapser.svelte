@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { slide } from "svelte/transition";
-  export let title = "Title";
+  import { slide } from 'svelte/transition';
+  export let title = 'Title';
   export let hide = true;
 
   function toggle() {
@@ -8,11 +8,7 @@
   }
 
   function handleKeydown(e: KeyboardEvent) {
-    if (
-      (e.code === "Space" || e.code === "Enter") &&
-      e.target === document.activeElement
-    )
-      toggle();
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target === document.activeElement) toggle();
   }
 </script>
 
@@ -27,8 +23,7 @@
         class="mdi-plus marker"
         width="20"
         height="20"
-        viewBox="0 0 24 24"
-        ><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg
+        viewBox="0 0 24 24"><path d="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" /></svg
       ></span
     >
   </div>

@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extName__",
   "short_name": "__MSG_shortName__",
-  "version": "0.4.0",
+  "version": "1.0.0",
   "author": "Cudiph",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
@@ -22,20 +22,9 @@
   "content_scripts": [
     {
       "all_frames": true,
-      "matches": [
-        "http://*/*",
-        "https://*/*",
-        "file://*/*"
-      ],
-      "js": [
-        "lib/browser-polyfill.min.js",
-        "content/content-script.js"
-      ],
-      "css": [
-        "global.css",
-        "bundle.css",
-        "content/styling.css"
-      ],
+      "matches": ["http://*/*", "https://*/*", "file://*/*"],
+      "js": ["browser-polyfill.min.js", "content-script.js"],
+      "css": ["global.css", "content-script.css"],
       "run_at": "document_start"
     }
   ],
@@ -56,7 +45,5 @@
     "page": "options/main.html",
     "browser_style": true
   },
-  "web_accessible_resources": [
-    "images/*.png"
-  ]
+  "web_accessible_resources": ["images/*.png"]
 }

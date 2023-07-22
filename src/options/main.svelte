@@ -1,17 +1,17 @@
 <script lang="ts">
-  import { langId } from "../lib/gtrans";
+  import { langId } from '../lib/gtrans';
 
-  import Header from "./Header.svelte";
+  import Header from './Header.svelte';
   const gm = browser.i18n.getMessage;
 
   const bslocal = browser.storage.local;
 
   let config = {
-    tl: "",
-    atl: "",
+    tl: '',
+    atl: '',
     hostnames: [],
   };
-  bslocal.get(["targetLang", "altTargetLang", "hostnames"]).then((res) => {
+  bslocal.get(['targetLang', 'altTargetLang', 'hostnames']).then((res) => {
     config.tl = res.targetLang;
     config.atl = res.altTargetLang;
     config.hostnames = res.hostnames;
@@ -24,9 +24,7 @@
 
     // switch value if tl and atl is same
     if (val === config.atl) {
-      const atlElement = document.querySelector(
-        'select[name="atl"]'
-      ) as HTMLOptionElement;
+      const atlElement = document.querySelector('select[name="atl"]') as HTMLOptionElement;
       config.atl = atlElement.value = config.tl;
     }
     config.tl = val;
@@ -41,9 +39,7 @@
     const elem = e.target as HTMLOptionElement;
     const val = elem.value;
     if (val === config.tl) {
-      const atlElement = document.querySelector(
-        'select[name="tl"]'
-      ) as HTMLOptionElement;
+      const atlElement = document.querySelector('select[name="tl"]') as HTMLOptionElement;
       config.tl = atlElement.value = config.atl;
     }
     config.atl = val;
@@ -57,8 +53,8 @@
     const value = (e.target as HTMLTextAreaElement).value;
     const blocklist = value
       .trim()
-      .replace(/(^\s+|[^\S\n]+)/gm, "")
-      .split("\n");
+      .replace(/(^\s+|[^\S\n]+)/gm, '')
+      .split('\n');
     browser.storage.local.set({
       hostnames: blocklist,
     });
@@ -78,7 +74,7 @@
     <Header />
     <main>
       <div class="opt-row">
-        <label for="tl">{gm("targetLanguage")}</label>
+        <label for="tl">{gm('targetLanguage')}</label>
         <select name="tl" id="tl" on:change={updateTargetLang}>
           {#each Object.entries(langId) as [code, language]}
             <option selected={res.tl === code ? true : false} value={code}>
@@ -88,7 +84,7 @@
         </select>
       </div>
       <div class="opt-row">
-        <label for="atl">{gm("alternative")} {gm("targetLanguage")}</label>
+        <label for="atl">{gm('alternative')} {gm('targetLanguage')}</label>
         <select name="atl" id="atl" on:change={updateATL}>
           {#each Object.entries(langId) as [code, language]}
             <option selected={res.atl === code ? true : false} value={code}>
@@ -98,14 +94,14 @@
         </select>
       </div>
       <div class="opt-row">
-        <label for="blocklist">{gm("disabledIn")}: </label>
+        <label for="blocklist">{gm('disabledIn')}: </label>
         <textarea
           on:input={handleInput}
           name="blocklist"
           id="blocklist"
           cols="45"
           rows="10"
-          value={res.hostnames.join("\n")}
+          value={res.hostnames.join('\n')}
         />
       </div>
     </main>
@@ -118,7 +114,7 @@
     margin: 2em auto;
     background-color: var(--translight-bg-color);
     color: var(--translight-fg-color);
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
   .opt-row {
     margin: 0 1px 40px 15px;

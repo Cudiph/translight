@@ -3,11 +3,11 @@
 
   let active = true;
   let isPopup = false;
-  let hostname = "";
+  let hostname = '';
   let blocklist = [];
 
   const p1 = browser.tabs.query({ active: true, lastFocusedWindow: true });
-  const p2 = browser.storage.local.get("hostnames");
+  const p2 = browser.storage.local.get('hostnames');
 
   Promise.all([p1, p2]).then((vals) => {
     const [[tab], { hostnames }] = vals;
@@ -19,7 +19,7 @@
   });
 
   browser.windows.getCurrent().then((win) => {
-    if (win.type === "popup") isPopup = true;
+    if (win.type === 'popup') isPopup = true;
     else isPopup = false;
   });
 
@@ -67,7 +67,7 @@
       </button>
     </div>
     <div>
-      <h3>{gm("shortName")}</h3>
+      <h3>{gm('shortName')}</h3>
     </div>
     <div>
       <button type="button" on:click={handleDetachClick}>
@@ -75,8 +75,8 @@
           xmlns="http://www.w3.org/2000/svg"
           id="mdi-dock-window"
           viewBox="0 0 24 24"
-          width=24
-          height=24
+          width="24"
+          height="24"
           class:lopacity={isPopup}
           ><path
             d="M18 18V20H4A2 2 0 0 1 2 18V8H4V18M22 6V14A2 2 0 0 1 20 16H8A2 2 0 0 1 6 14V6A2 2 0 0 1 8 4H20A2 2 0 0 1 22 6M20 6H8V14H20Z"
@@ -93,7 +93,7 @@
     justify-content: space-between;
     height: 24px;
   }
-  
+
   button {
     padding: 0;
     background-color: transparent;
@@ -104,8 +104,8 @@
     margin: unset;
     text-transform: uppercase;
     text-align: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell,
+      'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 18px;
   }
 

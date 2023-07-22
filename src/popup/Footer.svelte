@@ -1,13 +1,13 @@
 <!-- svelte-ignore a11y-invalid-attribute -->
 <script lang="ts">
-  import { query } from "./store";
-  import { stringify } from "query-string";
+  import { query } from './store';
+  import qstr from 'query-string';
 
   let windowURL: Promise<string>;
   let targetLang: Promise<string>;
   const gm = browser.i18n.getMessage;
 
-  browser.storage.local.get(["windowURL", "targetLang"]).then((res) => {
+  browser.storage.local.get(['windowURL', 'targetLang']).then((res) => {
     windowURL = res.windowURL;
     targetLang = res.targetLang;
   });
@@ -19,8 +19,8 @@
 
   function translateThisPage(e: Event) {
     e.preventDefault();
-    const props = stringify({
-      sl: "auto",
+    const props = qstr.stringify({
+      sl: 'auto',
       tl: targetLang,
       u: windowURL,
     });
@@ -42,15 +42,13 @@
 <footer>
   <ul>
     <li>
-      <a href="#" on:click={translateThisPage}>{gm("translateThisPage")}</a>
+      <a href="#" on:click={translateThisPage}>{gm('translateThisPage')}</a>
     </li>
     <span>-</span>
-    <li><a href="#" on:click={openOptions}>{gm("extensionOptions")}</a></li>
+    <li><a href="#" on:click={openOptions}>{gm('extensionOptions')}</a></li>
     <span>-</span>
     <li>
-      <a href="#" on:click={openInGoogleTranslate}
-        >{gm("openInGoogleTranslate")}</a
-      >
+      <a href="#" on:click={openInGoogleTranslate}>{gm('openInGoogleTranslate')}</a>
     </li>
   </ul>
 </footer>
@@ -74,6 +72,10 @@
     text-decoration: none;
     display: inline;
     cursor: pointer;
+  }
+
+  a {
+    font-size: 13px;
   }
 
   a:hover {

@@ -1,8 +1,7 @@
 {
   "browser_specific_settings": {
     "gecko": {
-      "id": "translight@ordinarygamers",
-      "strict_min_version": "80.0"
+      "id": "translight@ordinarygamers"
     }
   },
   "page_action": {
@@ -14,14 +13,8 @@
       "128": "images/translight-128.png"
     },
     "default_title": "Translate this page",
-    "show_matches": [
-      "https://*/*",
-      "http://*/*"
-    ],
-    "hide_matches": [
-      "https://*.google.com/*",
-      "https://*.translate.goog/*"
-    ]
+    "show_matches": ["https://*/*", "http://*/*"],
+    "hide_matches": ["https://*.google.com/*", "https://*.translate.goog/*"]
   },
   "commands": {
     "_execute_browser_action": {
