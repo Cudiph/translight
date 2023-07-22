@@ -8,13 +8,13 @@ browser.runtime.onInstalled.addListener(async ({ reason }) => {
     hostnames: requiredKey.hostnames || [],
   });
 
-  if (reason === "install") {
+  if (reason === 'install') {
     browser.runtime.openOptionsPage();
   }
 });
 
 // for updating selected text
-browser.tabs.onActivated.addListener(activeInfo => {
+browser.tabs.onActivated.addListener((activeInfo) => {
   browser.tabs.sendMessage(activeInfo.tabId, { name: 'tabchanged' });
 });
 
@@ -29,17 +29,16 @@ browser.tabs.onUpdated.addListener((id, info, tab) => {
 browser.windows.onFocusChanged.addListener(async (wid) => {
   const win = await browser.windows.get(wid, { populate: true });
 
-  const activeTab = win.tabs.find(el => el.active === true);
+  const activeTab = win.tabs.find((el) => el.active === true);
   bslocal.set({
     windowURL: activeTab.url,
   });
-
 });
 
 // address bar button
 browser.pageAction?.onClicked.addListener(async (tab) => {
   const props = {
-    sl: "auto",
+    sl: 'auto',
     tl: (await bslocal.get('targetLang')).targetLang,
     u: tab.url,
   };
@@ -49,19 +48,17 @@ browser.pageAction?.onClicked.addListener(async (tab) => {
 });
 
 browser.commands.onCommand.addListener(async (cmd) => {
-
   if (cmd === 'translate-this-page') {
     const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
     if (!tab) return;
     const props = {
-      sl: "auto",
+      sl: 'auto',
       tl: (await bslocal.get('targetLang')).targetLang,
       u: tab.url,
     };
 
     const link = `https://translate.google.com/translate?sl=auto&tl=${props.tl}&atl=ja&u=${tab.url}`;
     browser.tabs.create({ url: link });
-
   } else if (cmd === 'activation-switch') {
     const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
     const hostname = new URL(tab.url).hostname;
@@ -79,9 +76,13 @@ browser.commands.onCommand.addListener(async (cmd) => {
 function blobToDataURL(blob: Blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = (e) => { resolve(e.target.result); };
+    reader.onload = (e) => {
+      resolve(e.target.result);
+    };
     reader.readAsDataURL(blob);
-    reader.onerror = (_) => { reject('something went wrong'); };
+    reader.onerror = (_) => {
+      reject('something went wrong');
+    };
   });
 }
 
@@ -95,7 +96,6 @@ browser.runtime.onMessage.addListener(async (msg, sender, sendRes) => {
 
     if (res.ok) return dataUri;
     else return Promise.reject('no stream');
-
   } else if (msg.name === 'gtrans-fetch') {
     return gtrans(msg.text, msg.gtransOptions);
   } else if (msg.name === 'active-tab') {

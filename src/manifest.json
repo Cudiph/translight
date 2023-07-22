@@ -22,19 +22,9 @@
   "content_scripts": [
     {
       "all_frames": true,
-      "matches": [
-        "http://*/*",
-        "https://*/*",
-        "file://*/*"
-      ],
-      "js": [
-        "browser-polyfill.min.js",
-        "content-script.js"
-      ],
-      "css": [
-        "global.css",
-        "content-script.css"
-      ],
+      "matches": ["http://*/*", "https://*/*", "file://*/*"],
+      "js": ["browser-polyfill.min.js", "content-script.js"],
+      "css": ["global.css", "content-script.css"],
       "run_at": "document_start"
     }
   ],
@@ -55,7 +45,5 @@
     "page": "options/main.html",
     "browser_style": true
   },
-  "web_accessible_resources": [
-    "images/*.png"
-  ]
+  "web_accessible_resources": ["images/*.png"]
 }

@@ -1,118 +1,118 @@
-import qstr from "query-string";
+import qstr from 'query-string';
 
 // taken from https://cloud.google.com/translate/docs/languages
-export const langId: { [key: string]: string; } = {
-  "af": "Afrikaans",
-  "sq": "Albanian",
-  "am": "Amharic",
-  "ar": "Arabic",
-  "hy": "Armenian",
-  "az": "Azerbaijani",
-  "eu": "Basque",
-  "be": "Belarusian",
-  "bn": "Bengali",
-  "bs": "Bosnian",
-  "bg": "Bulgarian",
-  "ca": "Catalan",
-  "ceb": "Cebuano",
-  "zh": "Chinese (Simplified)",
-  "zh-CN": "Chinese (Simplified)",
-  "zh-TW": "Chinese (Traditional)",
-  "co": "Corsican",
-  "hr": "Croatian",
-  "cs": "Czech",
-  "da": "Danish",
-  "nl": "Dutch",
-  "en": "English",
-  "eo": "Esperanto",
-  "et": "Estonian",
-  "fi": "Finnish",
-  "fr": "French",
-  "fy": "Frisian",
-  "gl": "Galician",
-  "ka": "Georgian",
-  "de": "German",
-  "el": "Greek",
-  "gu": "Gujarati",
-  "ht": "CreoleHaitian",
-  "ha": "Hausa",
-  "haw": "Hawaiian",
-  "iw": "Hebrew",
-  "he": "Hebrew",
-  "hi": "Hindi",
-  "hmn": "Hmong",
-  "hu": "Hungarian",
-  "is": "Icelandic",
-  "ig": "Igbo",
-  "id": "Indonesian",
-  "ga": "Irish",
-  "it": "Italian",
-  "ja": "Japanese",
-  "jv": "Javanese",
-  "kn": "Kannada",
-  "kk": "Kazakh",
-  "km": "Khmer",
-  "rw": "Kinyarwanda",
-  "ko": "Korean",
-  "ku": "Kurdish",
-  "ky": "Kyrgyz",
-  "lo": "Lao",
-  "la": "Latin",
-  "lv": "Latvian",
-  "lt": "Lithuanian",
-  "lb": "Luxembourgish",
-  "mk": "Macedonian",
-  "mg": "Malagasy",
-  "ms": "Malay",
-  "ml": "Malayalam",
-  "mt": "Maltese",
-  "mi": "Maori",
-  "mr": "Marathi",
-  "mn": "Mongolian",
-  "my": "Myanmar (Burmese)",
-  "ne": "Nepali",
-  "no": "Norwegian",
-  "ny": "Nyanja (Chichewa)",
-  "or": "Odia (Oriya)",
-  "ps": "Pashto",
-  "fa": "Persian",
-  "pl": "Polish",
-  "pt": "Portuguese (Portugal,Brazil)",
-  "pa": "Punjabi",
-  "ro": "Romanian",
-  "ru": "Russian",
-  "sm": "Samoan",
-  "gd": "GaelicScots",
-  "sr": "Serbian",
-  "st": "Sesotho",
-  "sn": "Shona",
-  "sd": "Sindhi",
-  "si": "Sinhala (Sinhalese)",
-  "sk": "Slovak",
-  "sl": "Slovenian",
-  "so": "Somali",
-  "es": "Spanish",
-  "su": "Sundanese",
-  "sw": "Swahili",
-  "sv": "Swedish",
-  "tl": "Tagalog (Filipino)",
-  "tg": "Tajik",
-  "ta": "Tamil",
-  "tt": "Tatar",
-  "te": "Telugu",
-  "th": "Thai",
-  "tr": "Turkish",
-  "tk": "Turkmen",
-  "uk": "Ukrainian",
-  "ur": "Urdu",
-  "ug": "Uyghur",
-  "uz": "Uzbek",
-  "vi": "Vietnamese",
-  "cy": "Welsh",
-  "xh": "Xhosa",
-  "yi": "Yiddish",
-  "yo": "Yoruba",
-  "zu": "Zulu",
+export const langId: { [key: string]: string } = {
+  af: 'Afrikaans',
+  sq: 'Albanian',
+  am: 'Amharic',
+  ar: 'Arabic',
+  hy: 'Armenian',
+  az: 'Azerbaijani',
+  eu: 'Basque',
+  be: 'Belarusian',
+  bn: 'Bengali',
+  bs: 'Bosnian',
+  bg: 'Bulgarian',
+  ca: 'Catalan',
+  ceb: 'Cebuano',
+  zh: 'Chinese (Simplified)',
+  'zh-CN': 'Chinese (Simplified)',
+  'zh-TW': 'Chinese (Traditional)',
+  co: 'Corsican',
+  hr: 'Croatian',
+  cs: 'Czech',
+  da: 'Danish',
+  nl: 'Dutch',
+  en: 'English',
+  eo: 'Esperanto',
+  et: 'Estonian',
+  fi: 'Finnish',
+  fr: 'French',
+  fy: 'Frisian',
+  gl: 'Galician',
+  ka: 'Georgian',
+  de: 'German',
+  el: 'Greek',
+  gu: 'Gujarati',
+  ht: 'CreoleHaitian',
+  ha: 'Hausa',
+  haw: 'Hawaiian',
+  iw: 'Hebrew',
+  he: 'Hebrew',
+  hi: 'Hindi',
+  hmn: 'Hmong',
+  hu: 'Hungarian',
+  is: 'Icelandic',
+  ig: 'Igbo',
+  id: 'Indonesian',
+  ga: 'Irish',
+  it: 'Italian',
+  ja: 'Japanese',
+  jv: 'Javanese',
+  kn: 'Kannada',
+  kk: 'Kazakh',
+  km: 'Khmer',
+  rw: 'Kinyarwanda',
+  ko: 'Korean',
+  ku: 'Kurdish',
+  ky: 'Kyrgyz',
+  lo: 'Lao',
+  la: 'Latin',
+  lv: 'Latvian',
+  lt: 'Lithuanian',
+  lb: 'Luxembourgish',
+  mk: 'Macedonian',
+  mg: 'Malagasy',
+  ms: 'Malay',
+  ml: 'Malayalam',
+  mt: 'Maltese',
+  mi: 'Maori',
+  mr: 'Marathi',
+  mn: 'Mongolian',
+  my: 'Myanmar (Burmese)',
+  ne: 'Nepali',
+  no: 'Norwegian',
+  ny: 'Nyanja (Chichewa)',
+  or: 'Odia (Oriya)',
+  ps: 'Pashto',
+  fa: 'Persian',
+  pl: 'Polish',
+  pt: 'Portuguese (Portugal,Brazil)',
+  pa: 'Punjabi',
+  ro: 'Romanian',
+  ru: 'Russian',
+  sm: 'Samoan',
+  gd: 'GaelicScots',
+  sr: 'Serbian',
+  st: 'Sesotho',
+  sn: 'Shona',
+  sd: 'Sindhi',
+  si: 'Sinhala (Sinhalese)',
+  sk: 'Slovak',
+  sl: 'Slovenian',
+  so: 'Somali',
+  es: 'Spanish',
+  su: 'Sundanese',
+  sw: 'Swahili',
+  sv: 'Swedish',
+  tl: 'Tagalog (Filipino)',
+  tg: 'Tajik',
+  ta: 'Tamil',
+  tt: 'Tatar',
+  te: 'Telugu',
+  th: 'Thai',
+  tr: 'Turkish',
+  tk: 'Turkmen',
+  uk: 'Ukrainian',
+  ur: 'Urdu',
+  ug: 'Uyghur',
+  uz: 'Uzbek',
+  vi: 'Vietnamese',
+  cy: 'Welsh',
+  xh: 'Xhosa',
+  yi: 'Yiddish',
+  yo: 'Yoruba',
+  zu: 'Zulu',
 };
 
 export type TransOptions = {
@@ -121,23 +121,27 @@ export type TransOptions = {
   interfaceLang?: string;
   htmlTag?: boolean;
   resolve?: boolean;
-  contents?: Array<'t' | 'at' | 'bd' | 'ex' | 'ld' | 'md' | 'qca' | 'rw' | 'rm' | 'ss'>,
+  contents?: Array<'t' | 'at' | 'bd' | 'ex' | 'ld' | 'md' | 'qca' | 'rw' | 'rm' | 'ss'>;
 };
 
 type PartOfSpeechDefinition = {
-  [key: string]: [{
-    definition: string;
-    example: string;
-    synonyms: string[];
-  }];
+  [key: string]: [
+    {
+      definition: string;
+      example: string;
+      synonyms: string[];
+    }
+  ];
 };
 
 type PartOfSpeechTranslation = {
-  [key: string]: [{
-    word: string;
-    translations: string[];
-    frequency: string;
-  }];
+  [key: string]: [
+    {
+      word: string;
+      translations: string[];
+      frequency: string;
+    }
+  ];
 };
 
 export interface ReadableFormat {
@@ -194,7 +198,10 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
 
   // create return object
   let readable: ReadableFormat = {
-    from: jsonRes[8] && jsonRes[8][3] || jsonRes[8][0] ? jsonRes[8][0][0] || jsonRes[8][3][0] || 'auto' : 'auto',
+    from:
+      (jsonRes[8] && jsonRes[8][3]) || jsonRes[8][0]
+        ? jsonRes[8][0][0] || jsonRes[8][3][0] || 'auto'
+        : 'auto',
     altFrom: jsonRes[2],
     to: to,
   };
@@ -206,10 +213,8 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
     for (const iter of jsonRes[0]) {
       if (iter[0]) readable.translated += iter[0];
       if (iter[1]) readable.sourceText += iter[1];
-      if (jsonRes[0][1] && jsonRes[0][1][3])
-        readable.pronunciation = jsonRes[0][1][3] || '';
-      if (jsonRes[0][1] && jsonRes[0][1][2])
-        readable.destPronunciation = jsonRes[0][1][2];
+      if (jsonRes[0][1] && jsonRes[0][1][3]) readable.pronunciation = jsonRes[0][1][3] || '';
+      if (jsonRes[0][1] && jsonRes[0][1][2]) readable.destPronunciation = jsonRes[0][1][2];
       if (iter[2]) readable.destTranslit = iter[2];
       if (iter[3]) readable.translit = iter[3];
     }
@@ -222,7 +227,6 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
     if (readable.to in langId) readable.to = langId[readable.to];
     else readable.to = langId['en'];
     // if user give lang id incorrectly, google will always translate to english
-
   } else if (!(readable.to in langId)) {
     readable.to = 'en';
   }
@@ -233,7 +237,9 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
     readable.corrected = jsonRes[7][0] || jsonRes[7][1];
     if (!htmlTag) {
       // replace html tag with markdown format
-      readable.corrected = readable.corrected?.replace(/(?:<b>|<\/b>)/g, '**').replace(/(?:<i>|<\/i>)/g, '*');
+      readable.corrected = readable.corrected
+        ?.replace(/(?:<b>|<\/b>)/g, '**')
+        .replace(/(?:<i>|<\/i>)/g, '*');
     }
   } else {
     readable.isCorrected = false;
@@ -263,9 +269,8 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
         readable.translations[speechList[i][0]].push({
           word: elem[0],
           translations: elem[1],
-          frequency: freq
+          frequency: freq,
         });
-
       });
     }
   }
@@ -282,9 +287,7 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
         readable.synonyms![speechName].push(el[0]);
       });
     });
-
   }
-
 
   // definitions & the examples
   if (jsonRes[12]) {
@@ -304,24 +307,23 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
         const metaId = defList[1]; // "m_en_gbus0888500.013"
         let synonymsList: string[] = [];
 
-        if (synonyms) synonyms.forEach((e: any[]) => {
-          // e[0] is "verb" etc.
-          if (speechName === e[0]) {
-            let matching = 0;
-            // e[1] is list of synonyms at iter[0] and metaId at iter[1]
-            for (const iter of e[1]) {
-
-              if (metaId === iter[1]) {
-                synonymsList.push(...iter[0]);
-                matching++;
-              } else if (matching > 0) {
-                // for efficiency when the metaId were the same and nothing more it'll break the loop
-                break;
+        if (synonyms)
+          synonyms.forEach((e: any[]) => {
+            // e[0] is "verb" etc.
+            if (speechName === e[0]) {
+              let matching = 0;
+              // e[1] is list of synonyms at iter[0] and metaId at iter[1]
+              for (const iter of e[1]) {
+                if (metaId === iter[1]) {
+                  synonymsList.push(...iter[0]);
+                  matching++;
+                } else if (matching > 0) {
+                  // for efficiency when the metaId were the same and nothing more it'll break the loop
+                  break;
+                }
               }
             }
-
-          }
-        });
+          });
 
         readable.definitions![speechName].push({
           definition: defList[0],
@@ -330,19 +332,17 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
         });
       });
     });
-
   }
 
   // example sentences
-  if (jsonRes[13]) readable.examples = jsonRes[13][0].map((elem: any) => {
-    if (htmlTag) return elem[0];
-    // replace html tag to markdown
-    return elem[0].replace(/(?:<b>|<\/b>)/g, '**');
-  });
+  if (jsonRes[13])
+    readable.examples = jsonRes[13][0].map((elem: any) => {
+      if (htmlTag) return elem[0];
+      // replace html tag to markdown
+      return elem[0].replace(/(?:<b>|<\/b>)/g, '**');
+    });
 
-
-  if (jsonRes[14] && jsonRes[14][0])
-    readable.related = jsonRes[14][0];
+  if (jsonRes[14] && jsonRes[14][0]) readable.related = jsonRes[14][0];
   // appear when you translate v2/v3 word e.g. drunk
 
   return readable;
@@ -352,7 +352,8 @@ export default translate;
 
 export const validateLangId = (langCode: string): string | boolean => {
   if (typeof langCode !== 'string') return false;
-  if (langCode in langId) return langId[langCode]; else return false;
+  if (langCode in langId) return langId[langCode];
+  else return false;
 };
 
 export const getTTSLink = (query: string, languageId: string): string => {
@@ -360,7 +361,7 @@ export const getTTSLink = (query: string, languageId: string): string => {
     ie: 'UTF-8',
     tl: languageId,
     client: 'tw-ob',
-    q: query
+    q: query,
   });
   // limited to 200 character
   const url = `https://translate.google.com/translate_tts?${props}`;

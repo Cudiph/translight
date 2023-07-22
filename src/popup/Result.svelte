@@ -1,16 +1,13 @@
 <script lang="ts">
-  import { query } from "./store";
-  import Collapser from "../lib/Collapser.svelte";
-  import { getLangId, langId } from "../lib/gtrans";
-  import type {  ReadableFormat } from '../lib/gtrans';
+  import { query } from './store';
+  import Collapser from '../lib/Collapser.svelte';
+  import { getLangId, langId } from '../lib/gtrans';
+  import type { ReadableFormat } from '../lib/gtrans';
   import DOMPurify from 'dompurify';
 
-  const gtrans = async function (
-    text: string,
-    gtransOptions: Record<string, any>
-  ) {
+  const gtrans = async function (text: string, gtransOptions: Record<string, any>) {
     return browser.runtime.sendMessage({
-      name: "gtrans-fetch",
+      name: 'gtrans-fetch',
       text,
       gtransOptions,
     });
@@ -30,14 +27,10 @@
   let srcPlaying = false;
   let destPlaying = false;
 
-  async function playTTS(
-    query: string,
-    langId: string,
-    forComp: "src" | "dest"
-  ) {
+  async function playTTS(query: string, langId: string, forComp: 'src' | 'dest') {
     async function getDataURI(text: string) {
       const dataURI: string = await browser.runtime.sendMessage({
-        name: "tts-fetch",
+        name: 'tts-fetch',
         text: text,
         langId,
       });
@@ -50,7 +43,7 @@
       srcPlaying = false;
       destPlaying = false;
     }
-    if (forComp === "src") srcPlaying = true;
+    if (forComp === 'src') srcPlaying = true;
     else destPlaying = true;
 
     splittedQuery = splitTextToList(query, 200);
@@ -58,16 +51,16 @@
     const dataURI = await getDataURI(splittedQuery[0]);
     audio = new Audio();
     audio.src = dataURI;
-    audio.crossOrigin = "anonymous";
+    audio.crossOrigin = 'anonymous';
     audio.onplay = () => {
-      if (forComp === "src") srcPlaying = true;
+      if (forComp === 'src') srcPlaying = true;
       else destPlaying = true;
     };
     audio.onended = async () => {
       // play next audio when ended
       splittedQuery.shift();
       if (splittedQuery.length === 0) {
-        if (forComp === "src") srcPlaying = false;
+        if (forComp === 'src') srcPlaying = false;
         else destPlaying = false;
         return;
       }
@@ -87,7 +80,7 @@
     if (text.length <= maxLength) return [copy];
 
     const list = [];
-    while (copy.trim() !== "") {
+    while (copy.trim() !== '') {
       if (copy.length <= maxLength) {
         list.push(copy);
         break;
@@ -99,7 +92,7 @@
           list.push(copy.slice(0, maxLength));
           copy = copy.slice(maxLength).trim();
         }
-        if (copy[i] !== " ") continue;
+        if (copy[i] !== ' ') continue;
 
         list.push(copy.slice(0, i));
         copy = copy.slice(i).trim();
@@ -117,7 +110,7 @@
     translated: string
   ) {
     const from = (e.target as HTMLOptionElement).value;
-    if (from.trim() === "") return;
+    if (from.trim() === '') return;
 
     // exchange language
     if (from === origTo) {
@@ -140,7 +133,7 @@
     translated: string
   ) {
     const to = (e.target as HTMLOptionElement).value;
-    if (to.trim() === "") return;
+    if (to.trim() === '') return;
 
     if (origFrom === to) {
       gtransRes = gtrans(translated, { from: origTo, to: origFrom });
@@ -157,9 +150,8 @@
   }
 
   async function switchLang(from: string, sourceText: string) {
-    const tl = (await browser.storage.local.get("targetLang")).targetLang;
-    const atl = (await browser.storage.local.get("altTargetLang"))
-      .altTargetLang;
+    const tl = (await browser.storage.local.get('targetLang')).targetLang;
+    const atl = (await browser.storage.local.get('altTargetLang')).altTargetLang;
 
     // switch to alternate target
     if (from === tl) targetLang = atl;
@@ -179,7 +171,7 @@
 </script>
 
 {#await gtransRes}
-  <p style="margin: 0; padding: 0;">{gm("translateLoading")}</p>
+  <p style="margin: 0; padding: 0;">{gm('translateLoading')}</p>
 {:then res}
   {#if res.altFrom === res.to}
     {switchLang(getLangId(res.from), res.sourceText)}
@@ -198,13 +190,7 @@
       class="translight-clickable translight-hidden language-option"
       name="srclang"
       on:change={(e) =>
-        updateSource(
-          e,
-          getLangId(res.altFrom),
-          getLangId(res.to),
-          res.sourceText,
-          res.translated
-        )}
+        updateSource(e, getLangId(res.altFrom), getLangId(res.to), res.sourceText, res.translated)}
       bind:this={fromOptions}
     >
       {#each Object.entries(langId) as [code, language]}
@@ -225,7 +211,7 @@
         width="24"
         height="24"
         viewBox="0 0 24 24"
-        on:click={() => playTTS(res.sourceText, getLangId(res.altFrom), "src")}
+        on:click={() => playTTS(res.sourceText, getLangId(res.altFrom), 'src')}
       >
         <!-- the icon is "stolen" from https://github.com/Templarian/MaterialDesign-SVG -->
         <path
@@ -245,8 +231,7 @@
           audio.pause();
           srcPlaying = false;
         }}
-        viewBox="0 0 24 24"
-        ><path class=" translight-clickable" d="M18,18H6V6H18V18Z" /></svg
+        viewBox="0 0 24 24"><path class=" translight-clickable" d="M18,18H6V6H18V18Z" /></svg
       >
     {/if}
     {#if res.isCorrected}
@@ -302,7 +287,7 @@
         height="24"
         viewBox="0 0 24 24"
         style="float: right;"
-        on:click={() => playTTS(res.translated, getLangId(res.to), "dest")}
+        on:click={() => playTTS(res.translated, getLangId(res.to), 'dest')}
         ><path
           class="translight-clickable"
           d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
@@ -320,8 +305,7 @@
           audio.pause();
           destPlaying = false;
         }}
-        viewBox="0 0 24 24"
-        ><path class="translight-clickable" d="M18,18H6V6H18V18Z" /></svg
+        viewBox="0 0 24 24"><path class="translight-clickable" d="M18,18H6V6H18V18Z" /></svg
       >
     {/if}
 
@@ -333,7 +317,7 @@
     {/if}
 
     {#if res.related}
-      <div class="key-label">{gm("seeAlso")}</div>
+      <div class="key-label">{gm('seeAlso')}</div>
       {#each res.related as word}
         <button
           class="translight-btn translight-clickable"
@@ -347,7 +331,7 @@
     {/if}
 
     {#if res.translations}
-      <Collapser title={gm("translations")}>
+      <Collapser title={gm('translations')}>
         <div class="translations">
           {#each Object.keys(res.translations) as key}
             <table class="width-100">
@@ -355,19 +339,15 @@
                 <tr>
                   <th class="align-left key-label">{key}</th>
                   <th />
-                  <th class="align-right" style="font-weight: bold;"
-                    >{gm("frequency")}</th
-                  >
+                  <th class="align-right" style="font-weight: bold;">{gm('frequency')}</th>
                 </tr>
               </thead>
               <tbody>
                 {#each res.translations[key] as translationsObj}
                   <tr>
                     <td class="align-left no-wrap">{translationsObj.word}</td>
-                    <td
-                      class="opacity-60 width-100"
-                      style="padding-bottom: 5px; padding-left: 5px;"
-                      >{translationsObj.translations.join(", ")}</td
+                    <td class="opacity-60 width-100" style="padding-bottom: 5px; padding-left: 5px;"
+                      >{translationsObj.translations.join(', ')}</td
                     >
                     <td class="align-right">{translationsObj.frequency}</td>
                   </tr>
@@ -380,13 +360,11 @@
     {/if}
 
     {#if res.examples}
-      <Collapser title={gm("examples")}>
+      <Collapser title={gm('examples')}>
         <table>
           {#each res.examples as example}
             <tr>
-              <td
-                style="vertical-align: middle; padding: 0; padding-right: 5px;"
-              >
+              <td style="vertical-align: middle; padding: 0; padding-right: 5px;">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -395,9 +373,7 @@
                   width="24"
                   height="24"
                   viewBox="0 0 24 24"
-                  ><path
-                    d="M10,7L8,11H11V17H5V11L7,7H10M18,7L16,11H19V17H13V11L15,7H18Z"
-                  /></svg
+                  ><path d="M10,7L8,11H11V17H5V11L7,7H10M18,7L16,11H19V17H13V11L15,7H18Z" /></svg
                 >
               </td>
               <td style="padding-bottom: 5px;">{@html example}</td>
@@ -408,7 +384,7 @@
     {/if}
 
     {#if res.definitions}
-      <Collapser title={gm("definitions")}>
+      <Collapser title={gm('definitions')}>
         <div class="definitions">
           {#each Object.keys(res.definitions) as key}
             <div class="key-label">{key}</div>
@@ -427,7 +403,7 @@
                         <div class="opacity-60">"{defsObj.example}"</div>
                       {/if}
                       {#if defsObj.synonyms.length}
-                        <p class="opacity-60">{gm("synonyms")}:</p>
+                        <p class="opacity-60">{gm('synonyms')}:</p>
                         {#each defsObj.synonyms as synonym}
                           <button
                             class="translight-btn translight-clickable"
@@ -451,17 +427,17 @@
   </div>
 {:catch e}
   {#if $query?.length > 10000}
-    <p class="error-text">{gm("errorTextLimit")}</p>
+    <p class="error-text">{gm('errorTextLimit')}</p>
   {:else}
     <p>
-      {gm("unexpectedError")}: <span class="error-text">{e.message}</span>
+      {gm('unexpectedError')}: <span class="error-text">{e.message}</span>
     </p>
   {/if}
 {/await}
 
 <style>
   .translight-result * {
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: var(--translight-fg-color);
     background-color: var(--translight-bg-color);
   }

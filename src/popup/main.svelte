@@ -1,30 +1,28 @@
 <script lang="ts">
-  import { query } from "./store";
-  import gtrans from "../lib/gtrans";
-  import type { ReadableFormat } from "../lib/gtrans";
-  import Footer from "./Footer.svelte";
-  import Header from "./Header.svelte";
-  import Result from "./Result.svelte";
+  import { query } from './store';
+  import gtrans from '../lib/gtrans';
+  import type { ReadableFormat } from '../lib/gtrans';
+  import Footer from './Footer.svelte';
+  import Header from './Header.svelte';
+  import Result from './Result.svelte';
 
   const bslocal = browser.storage.local;
-  const config = { tl: "", atl: "" };
+  const config = { tl: '', atl: '' };
   let gtransPromise: Promise<ReadableFormat>;
   let targetLang: string;
 
-  const loadConfig = bslocal
-    .get(["targetLang", "altTargetLang", "selection"])
-    .then((res) => {
-      targetLang = config.tl = res.targetLang;
-      config.atl = res.altTargetLang;
-      $query = res.selection;
-      if ($query?.trim()) gtransPromise = gtrans($query, { to: targetLang });
-    });
+  const loadConfig = bslocal.get(['targetLang', 'altTargetLang', 'selection']).then((res) => {
+    targetLang = config.tl = res.targetLang;
+    config.atl = res.altTargetLang;
+    $query = res.selection;
+    if ($query?.trim()) gtransPromise = gtrans($query, { to: targetLang });
+  });
 
   let translateTimeout: NodeJS.Timeout;
   function handleInput() {
     clearTimeout(translateTimeout);
     translateTimeout = setTimeout(() => {
-      if ($query.trim() === "") return;
+      if ($query.trim() === '') return;
       gtransPromise = gtrans($query, { to: targetLang });
     }, 1000);
   }
@@ -61,7 +59,7 @@
     color: var(--translight-fg-color);
   }
 
-  textarea[name="query"] {
+  textarea[name='query'] {
     resize: vertical;
     background: var(--translight-bg-color);
     color: var(--translight-fg-color);

@@ -6,7 +6,7 @@ const base_manifest = require(`${root}/manifest.json`);
 let ff_manifest = require(`${root}/manifest-firefox.json`);
 let chrome_manifest = require(`${root}/manifest-chromium.json`);
 
-const paths = [`${__dirname}/../dist`]
+const paths = [`${__dirname}/../dist`];
 
 chrome_manifest = { ...base_manifest, ...chrome_manifest };
 ff_manifest = { ...base_manifest, ...ff_manifest };

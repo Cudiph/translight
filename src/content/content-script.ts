@@ -1,17 +1,18 @@
-import './styling.css'
+import './styling.css';
 import Result from '../popup/Result.svelte';
 
 const gm = browser.i18n.getMessage;
 
 // stolen method
 function getSelectionText() {
-  let text = "";
+  let text = '';
   const activeEl = document.activeElement as HTMLTextAreaElement | HTMLInputElement;
   const activeElTagName = activeEl ? activeEl.tagName.toLowerCase() : null;
   if (
-    (activeElTagName == "textarea") || (activeElTagName == "input" &&
-      /^(?:text|search|password|tel|url)$/i.test(activeEl.type)) &&
-    (typeof activeEl.selectionStart == "number")
+    activeElTagName == 'textarea' ||
+    (activeElTagName == 'input' &&
+      /^(?:text|search|password|tel|url)$/i.test(activeEl.type) &&
+      typeof activeEl.selectionStart == 'number')
   ) {
     text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
   } else if (window.getSelection) {
@@ -21,21 +22,21 @@ function getSelectionText() {
 }
 
 // save selection to storage so textarea in popup can use it
-document.addEventListener("click", () => {
+document.addEventListener('click', () => {
   const selected = getSelectionText();
   browser.storage.local.set({
     selection: selected,
   });
 });
 
-document.addEventListener("selectionchange", () => {
+document.addEventListener('selectionchange', () => {
   const selected = getSelectionText();
   browser.storage.local.set({
     selection: selected,
   });
 });
 
-browser.runtime.onMessage.addListener(msg => {
+browser.runtime.onMessage.addListener((msg) => {
   if (msg.name !== 'tabchanged') return;
 
   browser.storage.local.set({
@@ -92,7 +93,7 @@ function getHeight() {
 let container: HTMLDivElement;
 let tooltip: HTMLDivElement;
 let isTranslating = false;
-document.addEventListener("mouseup", async (e) => {
+document.addEventListener('mouseup', async (e) => {
   const activetab: browser.tabs.Tab = await browser.runtime.sendMessage({ name: 'active-tab' });
   const { hostnames } = await browser.storage.local.get('hostnames'); // blocklist
   const hostname = new URL(activetab.url).hostname;
@@ -105,7 +106,12 @@ document.addEventListener("mouseup", async (e) => {
   }
   const clickingExtButton = (e.target as HTMLElement).classList.contains('translight-clickable');
 
-  if (container && !container.contains(e.target as HTMLElement) && isTranslating && !clickingExtButton) {
+  if (
+    container &&
+    !container.contains(e.target as HTMLElement) &&
+    isTranslating &&
+    !clickingExtButton
+  ) {
     container.remove();
     container = null;
   }
@@ -127,7 +133,11 @@ document.addEventListener("mouseup", async (e) => {
     container.style.padding = '5px';
     container = document.body.appendChild(container);
     const { targetLang } = await browser.storage.local.get('targetLang');
-    const translated = browser.runtime.sendMessage({ name: 'gtrans-fetch', text: selected, gtransOptions: { to: targetLang } });
+    const translated = browser.runtime.sendMessage({
+      name: 'gtrans-fetch',
+      text: selected,
+      gtransOptions: { to: targetLang },
+    });
 
     const resComponent = new Result({
       target: container,
@@ -135,7 +145,7 @@ document.addEventListener("mouseup", async (e) => {
         gtransRes: translated,
         targetLang,
         fromContentScript: true,
-      }
+      },
     });
   };
 });
