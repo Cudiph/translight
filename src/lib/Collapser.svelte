@@ -12,8 +12,8 @@
   }
 </script>
 
-<div class="collapser" tabindex="0" on:keydown={handleKeydown}>
-  <div class="handler" class:hide={!hide} on:click={toggle}>
+<div class="collapser" tabindex="0" on:keydown={handleKeydown} on:click={toggle} role="button">
+  <div class="handler" class:hide={!hide}>
     <span>{title}</span>
     <span class="marker"
       ><svg
@@ -27,7 +27,7 @@
       ></span
     >
   </div>
-  <div class="handler" class:hide on:click={toggle}>
+  <div class="handler" class:hide>
     <span>{title}</span>
     <span
       ><svg

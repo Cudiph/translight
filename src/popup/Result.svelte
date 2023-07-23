@@ -168,6 +168,10 @@
     const newText = text.replace(/\n/g, '<br />');
     return DOMPurify.sanitize(newText);
   }
+
+  function handleKeyDownTTS(e: KeyboardEvent, fn2run: () => void) {
+    if ((e.code === 'Space' || e.code === 'Enter') && e.target === document.activeElement) fn2run();
+  }
 </script>
 
 {#await gtransRes}
@@ -212,6 +216,10 @@
         height="24"
         viewBox="0 0 24 24"
         on:click={() => playTTS(res.sourceText, getLangId(res.altFrom), 'src')}
+        on:keydown={(e) =>
+          handleKeyDownTTS(e, () => playTTS(res.sourceText, getLangId(res.altFrom), 'src'))}
+        role="button"
+        tabindex="0"
       >
         <!-- the icon is "stolen" from https://github.com/Templarian/MaterialDesign-SVG -->
         <path
@@ -231,6 +239,13 @@
           audio.pause();
           srcPlaying = false;
         }}
+        on:keydown={(e) =>
+          handleKeyDownTTS(e, () => {
+            audio.pause();
+            srcPlaying = false;
+          })}
+        role="button"
+        tabindex="0"
         viewBox="0 0 24 24"><path class=" translight-clickable" d="M18,18H6V6H18V18Z" /></svg
       >
     {/if}
@@ -288,6 +303,10 @@
         viewBox="0 0 24 24"
         style="float: right;"
         on:click={() => playTTS(res.translated, getLangId(res.to), 'dest')}
+        on:keydown={(e) =>
+          handleKeyDownTTS(e, () => playTTS(res.translated, getLangId(res.to), 'dest'))}
+        role="button"
+        tabindex="0"
         ><path
           class="translight-clickable"
           d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"
@@ -305,6 +324,13 @@
           audio.pause();
           destPlaying = false;
         }}
+        on:keydown={(e) =>
+          handleKeyDownTTS(e, () => {
+            audio.pause();
+            destPlaying = false;
+          })}
+        role="button"
+        tabindex="0"
         viewBox="0 0 24 24"><path class="translight-clickable" d="M18,18H6V6H18V18Z" /></svg
       >
     {/if}
