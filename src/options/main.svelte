@@ -4,9 +4,16 @@
 
   import Header from './Header.svelte';
   const gm = browser.i18n.getMessage;
-
   const bslocal = browser.storage.local;
 
+  // check permissions
+  let has_all_perms = false;
+  const page_query = { origins: ['http://*/*', 'https://*/*', 'file://*/*'] };
+  browser.permissions.contains(page_query).then((res) => {
+    has_all_perms = res;
+  });
+
+  // fetch configs
   let config = {
     tl: '',
     atl: '',
@@ -68,46 +75,57 @@
       updateBlocklist(e);
     }, 500);
   }
+
+  function request_perms() {
+    browser.permissions.request(page_query);
+  }
 </script>
 
-{#await config then res}
-  <div id="app">
-    <Header />
-    <main>
+<div id="app">
+  <Header />
+  <main>
+    {#if !has_all_perms}
       <div class="opt-row">
-        <label for="tl">{gm('targetLanguage')}</label>
-        <select name="tl" id="tl" on:change={updateTargetLang}>
-          {#each Object.entries(langId) as [code, language]}
-            <option selected={res.tl === code ? true : false} value={code}>
-              {language}
-            </option>
-          {/each}
-        </select>
+        <p>
+          This permissions allows extension for injecting the script to the website you visited so
+          that the highlight tooltip would appear. Click the button below to approve.
+        </p>
+        <button on:click={request_perms}>Allow extension to access all website data</button>
       </div>
-      <div class="opt-row">
-        <label for="atl">{gm('alternative')} {gm('targetLanguage')}</label>
-        <select name="atl" id="atl" on:change={updateATL}>
-          {#each Object.entries(langId) as [code, language]}
-            <option selected={res.atl === code ? true : false} value={code}>
-              {language}
-            </option>
-          {/each}
-        </select>
-      </div>
-      <div class="opt-row">
-        <label for="blocklist">{gm('disabledIn')}: </label>
-        <textarea
-          on:input={handleInput}
-          name="blocklist"
-          id="blocklist"
-          cols="45"
-          rows="10"
-          value={res.hostnames.join('\n')}
-        />
-      </div>
-    </main>
-  </div>
-{/await}
+    {/if}
+    <div class="opt-row">
+      <label for="tl">{gm('targetLanguage')}</label>
+      <select name="tl" id="tl" on:change={updateTargetLang}>
+        {#each Object.entries(langId) as [code, language]}
+          <option selected={config.tl === code ? true : false} value={code}>
+            {language}
+          </option>
+        {/each}
+      </select>
+    </div>
+    <div class="opt-row">
+      <label for="atl">{gm('alternative')} {gm('targetLanguage')}</label>
+      <select name="atl" id="atl" on:change={updateATL}>
+        {#each Object.entries(langId) as [code, language]}
+          <option selected={config.atl === code ? true : false} value={code}>
+            {language}
+          </option>
+        {/each}
+      </select>
+    </div>
+    <div class="opt-row">
+      <label for="blocklist">{gm('disabledIn')}: </label>
+      <textarea
+        on:input={handleInput}
+        name="blocklist"
+        id="blocklist"
+        cols="45"
+        rows="10"
+        value={config.hostnames.join('\n')}
+      />
+    </div>
+  </main>
+</div>
 
 <style>
   main {
@@ -117,9 +135,11 @@
     color: var(--translight-fg-color);
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
+
   .opt-row {
     margin: 0 1px 40px 15px;
   }
+
   .opt-row label {
     display: block;
   }

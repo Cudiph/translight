@@ -13,7 +13,7 @@
     "128": "images/translight-128.png"
   },
   "permissions": ["storage", "tabs"],
-  "host_permissions": ["*://translate.google.com/*", "*://translate.googleapis.com/*"],
+  "host_permissions": ["<all_urls>"],
   "content_scripts": [
     {
       "all_frames": true,

@@ -1,5 +1,5 @@
-import { defineConfig, loadEnv } from "vite";
-import { svelte } from "@sveltejs/vite-plugin-svelte";
+import { defineConfig, loadEnv } from 'vite';
+import { svelte } from '@sveltejs/vite-plugin-svelte';
 
 // https://vitejs.dev/config/
 export default defineConfig((command, mode, isSsrBuild, isPreview) => {
@@ -11,17 +11,17 @@ export default defineConfig((command, mode, isSsrBuild, isPreview) => {
       sourcemap: env.NODE_ENV === 'dev',
       emptyOutDir: false,
       rollupOptions: {
-        input: "src/content/content-script.ts",
+        input: 'src/content/content-script.ts',
         output: [
           {
-            dir: "dist/chromium",
-            entryFileNames: "[name].js",
-            assetFileNames: "[name][extname]",
+            dir: 'dist/chromium',
+            entryFileNames: '[name].js',
+            assetFileNames: '[name][extname]',
           },
           {
-            dir: "dist/firefox",
-            entryFileNames: "[name].js",
-            assetFileNames: "[name][extname]",
+            dir: 'dist/firefox',
+            entryFileNames: '[name].js',
+            assetFileNames: '[name][extname]',
           },
         ],
       },
