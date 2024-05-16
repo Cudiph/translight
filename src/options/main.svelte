@@ -86,11 +86,8 @@
   <main>
     {#if !has_all_perms}
       <div class="opt-row">
-        <p>
-          This permissions allows extension for injecting the script to the website you visited so
-          that the highlight tooltip would appear. Click the button below to approve.
-        </p>
-        <button on:click={request_perms}>Allow extension to access all website data</button>
+        <p>{gm('allowAccessExplanation')}</p>
+        <button on:click={request_perms}>{gm('allowAccessButton')}</button>
       </div>
     {/if}
     <div class="opt-row">

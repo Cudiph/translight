@@ -64,5 +64,11 @@
   },
   "activationSwitch": {
     "message": "Enable/Disable the tooltip popup"
+  },
+  "allowAccessExplanation": {
+    "message": "This permissions allows extension for injecting the script to the website you visited so that the highlight tooltip would appear. Click button below to approve."
+  },
+  "allowAccessButton": {
+    "message": "Allow extension to access all website data"
   }
 }
