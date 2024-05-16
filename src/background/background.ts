@@ -1,4 +1,6 @@
+import browser from 'webextension-polyfill';
 import gtrans, { getTTSLink } from '../lib/gtrans';
+
 const bslocal = browser.storage.local;
 browser.runtime.onInstalled.addListener(async ({ reason }) => {
   const requiredKey = await bslocal.get(['targetLang', 'altTargetLang', 'hostnames']);
@@ -27,6 +29,7 @@ browser.tabs.onUpdated.addListener((id, info, tab) => {
 
 // for updating windowURL when window change
 browser.windows.onFocusChanged.addListener(async (wid) => {
+  if (wid === -1) return;
   const win = await browser.windows.get(wid, { populate: true });
 
   const activeTab = win.tabs.find((el) => el.active === true);

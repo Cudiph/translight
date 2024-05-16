@@ -4,13 +4,14 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "copy-public-dist": "cp -r src/dist ./ && rm -rf src/dist",
-    "build": "vite build && node script/build.cjs && npm run build:content && npm run copy-public-dist",
+    "build": "vite build && npm run build:manifest && npm run build:content",
+    "build:manifest": "node script/build.cjs",
     "build:content": "vite build --config vite.content.config.ts",
-    "dev": "npm run build && vite build --watch",
+    "dev": "export NODE_ENV=dev || set NODE_ENV=dev&& npm run build:manifest && vite build",
+    "dev:content": "export NODE_ENV=dev || set NODE_ENV=dev&& npm run build:content",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "format": "prettier --plugin-search-dir . --write .",
-    "lint": "prettier --plugin-search-dir . --check ."
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
   },
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.0",

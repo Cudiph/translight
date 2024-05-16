@@ -1,5 +1,6 @@
 <!-- svelte-ignore a11y-invalid-attribute -->
 <script lang="ts">
+  import browser from 'webextension-polyfill';
   import { query } from './store';
   import qstr from 'query-string';
 

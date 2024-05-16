@@ -1,4 +1,5 @@
 <script lang="ts">
+  import browser from 'webextension-polyfill';
   import { query } from './store';
   import gtrans from '../lib/gtrans';
   import type { ReadableFormat } from '../lib/gtrans';

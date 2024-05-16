@@ -1,4 +1,5 @@
 import qstr from 'query-string';
+import browser from 'webextension-polyfill';
 
 // taken from https://cloud.google.com/translate/docs/languages
 export const langId: { [key: string]: string } = {
@@ -130,7 +131,7 @@ type PartOfSpeechDefinition = {
       definition: string;
       example: string;
       synonyms: string[];
-    }
+    },
   ];
 };
 
@@ -140,7 +141,7 @@ type PartOfSpeechTranslation = {
       word: string;
       translations: string[];
       frequency: string;
-    }
+    },
   ];
 };
 

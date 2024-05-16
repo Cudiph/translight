@@ -1,8 +1,8 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "__MSG_extName__",
   "short_name": "__MSG_shortName__",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "author": "Cudiph",
   "description": "__MSG_extDesc__",
   "default_locale": "en",
@@ -10,28 +10,20 @@
     "48": "images/translight-48.png",
     "64": "images/translight-64.png",
     "96": "images/translight-96.png",
-    "128": "images/translight-128.png",
-    "256": "images/translight-256.png"
+    "128": "images/translight-128.png"
   },
-  "permissions": [
-    "storage",
-    "tabs",
-    "*://translate.google.com/*",
-    "*://translate.googleapis.com/*"
-  ],
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["*://translate.google.com/*", "*://translate.googleapis.com/*"],
   "content_scripts": [
     {
       "all_frames": true,
       "matches": ["http://*/*", "https://*/*", "file://*/*"],
-      "js": ["browser-polyfill.min.js", "content-script.js"],
-      "css": ["global.css", "content-script.css"],
+      "js": ["content-script.js"],
+      "css": ["global.css", "content.css", "content-script.css"],
       "run_at": "document_start"
     }
   ],
-  "background": {
-    "page": "background/main.html"
-  },
-  "browser_action": {
+  "action": {
     "default_icon": {
       "48": "images/translight-48.png",
       "64": "images/translight-64.png",
@@ -39,11 +31,15 @@
       "128": "images/translight-128.png"
     },
     "default_title": "Translight",
-    "default_popup": "popup/main.html"
+    "default_popup": "src/popup/main.html"
   },
   "options_ui": {
-    "page": "options/main.html",
-    "browser_style": true
+    "page": "src/options/main.html"
   },
-  "web_accessible_resources": ["images/*.png"]
+  "web_accessible_resources": [
+    {
+      "resources": ["images/*.png"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

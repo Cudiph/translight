@@ -1,4 +1,5 @@
 <script lang="ts">
+  import browser from 'webextension-polyfill';
   const gm = browser.i18n.getMessage;
 
   let active = true;

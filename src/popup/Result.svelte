@@ -4,6 +4,7 @@
   import { getLangId, langId } from '../lib/gtrans';
   import type { ReadableFormat } from '../lib/gtrans';
   import DOMPurify from 'dompurify';
+  import browser from 'webextension-polyfill';
 
   const gtrans = async function (text: string, gtransOptions: Record<string, any>) {
     return browser.runtime.sendMessage({

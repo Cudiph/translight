@@ -1,5 +1,5 @@
-import './styling.css';
 import Result from '../popup/Result.svelte';
+import browser from 'webextension-polyfill';
 
 const gm = browser.i18n.getMessage;
 

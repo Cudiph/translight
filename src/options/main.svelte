@@ -1,5 +1,6 @@
 <script lang="ts">
   import { langId } from '../lib/gtrans';
+  import browser from 'webextension-polyfill';
 
   import Header from './Header.svelte';
   const gm = browser.i18n.getMessage;
