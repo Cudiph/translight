@@ -42,7 +42,7 @@
       autofocus
     />
 
-    {#await loadConfig then _}
+    {#await loadConfig}
       {#if gtransPromise}
         <hr />
         <Result gtransRes={gtransPromise} {targetLang} />

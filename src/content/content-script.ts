@@ -16,7 +16,7 @@ function getSelectionText() {
   ) {
     text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
   } else if (window.getSelection) {
-    text = window.getSelection().toString();
+    text = window.getSelection()?.toString();
   }
   return text;
 }

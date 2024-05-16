@@ -32,9 +32,9 @@ browser.windows.onFocusChanged.addListener(async (wid) => {
   if (wid === -1) return;
   const win = await browser.windows.get(wid, { populate: true });
 
-  const activeTab = win.tabs.find((el) => el.active === true);
+  const activeTab = win.tabs?.find((el) => el.active === true);
   bslocal.set({
-    windowURL: activeTab.url,
+    windowURL: activeTab?.url,
   });
 });
 
@@ -80,7 +80,7 @@ function blobToDataURL(blob: Blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
-      resolve(e.target.result);
+      resolve(e.target?.result);
     };
     reader.readAsDataURL(blob);
     reader.onerror = (_) => {

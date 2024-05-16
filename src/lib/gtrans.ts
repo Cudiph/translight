@@ -375,4 +375,5 @@ export const getLangId = (langName: string): string => {
       return key;
     }
   }
+  return '';
 };

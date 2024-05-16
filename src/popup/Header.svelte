@@ -5,7 +5,7 @@
   let active = true;
   let isPopup = false;
   let hostname = '';
-  let blocklist = [];
+  let blocklist: string[] = [];
 
   const p1 = browser.tabs.query({ active: true, lastFocusedWindow: true });
   const p2 = browser.storage.local.get('hostnames');
@@ -24,7 +24,7 @@
     else isPopup = false;
   });
 
-  function handlePowerClick(e: Event) {
+  function handlePowerClick(_: Event) {
     active = !active;
 
     if (active) {
@@ -38,7 +38,7 @@
     });
   }
 
-  function handleDetachClick(e: Event) {
+  function handleDetachClick(_: Event) {
     browser.windows.create({
       url: window.location.href,
       type: 'popup',

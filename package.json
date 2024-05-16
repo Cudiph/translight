@@ -16,8 +16,9 @@
   "devDependencies": {
     "@sveltejs/vite-plugin-svelte": "^3.1.0",
     "@tsconfig/svelte": "^5.0.4",
-    "@types/firefox-webext-browser": "^120.0.3",
+    "@types/dompurify": "^3.0.5",
     "@types/node": "^20.12.12",
+    "@types/webextension-polyfill": "^0.10.7",
     "prettier": "3.2.5",
     "prettier-plugin-svelte": "3.2.3",
     "svelte": "^4.2.17",
