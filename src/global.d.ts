@@ -7,4 +7,5 @@ interface LocalStorage {
   windowURL?: string;
   selection?: string;
   hostnames: string[]; // blocklisted hostname
+  keepCentered: boolean;
 }

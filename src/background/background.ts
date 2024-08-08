@@ -3,11 +3,12 @@ import gtrans, { getTTSLink } from '../lib/gtrans';
 
 const bslocal = browser.storage.local;
 browser.runtime.onInstalled.addListener(async ({ reason }) => {
-  const requiredKey = await bslocal.get(['targetLang', 'altTargetLang', 'hostnames']);
+  const optionKey = await bslocal.get(['targetLang', 'altTargetLang', 'hostnames', 'keepCentered']);
   bslocal.set({
-    targetLang: requiredKey.targetLang || 'en',
-    altTargetLang: requiredKey.altTargetLang || 'zh',
-    hostnames: requiredKey.hostnames || [],
+    targetLang: optionKey.targetLang || 'en',
+    altTargetLang: optionKey.altTargetLang || 'zh',
+    hostnames: optionKey.hostnames || [],
+    keepCentered: optionKey.keepCentered || false,
   });
 
   if (reason === 'install') {

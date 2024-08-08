@@ -55,6 +55,12 @@ function createContainer(x: number, y: number) {
   return container;
 }
 
+function createContainerFixed() {
+  const container = createContainer(0, 0);
+  container.style.position = 'fixed';
+  return container;
+}
+
 // add clickable icon
 function addTooltip(tooltipParent: HTMLElement, x: number, y: number) {
   const icon = document.createElement('img');
@@ -89,14 +95,26 @@ function getHeight() {
     document.documentElement.clientHeight
   );
 }
+
+function observerCallback(entries: ResizeObserverEntry[]) {
+  if (!entries.length) return;
+
+  const target = entries[0].target as HTMLDivElement;
+  const targetBounds = target.getBoundingClientRect();
+
+  target.style.left = `${window.innerWidth / 2 - targetBounds.width / 2}px`;
+  target.style.top = `${window.innerHeight / 2 - targetBounds.height / 2}px`;
+}
+
+
 // event handler to handle whether inline popup should work as expected
-let container: HTMLDivElement;
+let container: HTMLDivElement | null;
 let tooltip: HTMLDivElement;
 let isTranslating = false;
 document.addEventListener('mouseup', async (e) => {
-  const activetab: browser.tabs.Tab = await browser.runtime.sendMessage({ name: 'active-tab' });
+  const activetab: browser.Tabs.Tab = await browser.runtime.sendMessage({ name: 'active-tab' });
   const { hostnames } = await browser.storage.local.get('hostnames'); // blocklist
-  const hostname = new URL(activetab.url).hostname;
+  const hostname = new URL(activetab.url || '').hostname;
   if (hostnames.includes(hostname)) return;
 
   const selected = getSelectionText();
@@ -125,14 +143,19 @@ document.addEventListener('mouseup', async (e) => {
 
   // show result when the icon tooltip is clicked
   tooltip.onclick = async (_) => {
+    const { targetLang, keepCentered } = await browser.storage.local.get(['targetLang', 'keepCentered']);
+
     isTranslating = true;
     tooltip.remove();
-    container = createContainer(x, y);
+    if (keepCentered) {
+      container = createContainerFixed();
+    } else {
+      container = createContainer(x, y);
+    }
     container.style.height = 'auto';
     container.style.overflowY = 'scroll';
     container.style.padding = '5px';
     container = document.body.appendChild(container);
-    const { targetLang } = await browser.storage.local.get('targetLang');
     const translated = browser.runtime.sendMessage({
       name: 'gtrans-fetch',
       text: selected,
@@ -147,6 +170,13 @@ document.addEventListener('mouseup', async (e) => {
         fromContentScript: true,
       },
     });
+
+    if (keepCentered) {
+      const resizeObserver = new ResizeObserver(observerCallback)
+      resizeObserver.observe(container);
+    };
+
+
   };
 });
 

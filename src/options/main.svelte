@@ -17,12 +17,14 @@
   let config = {
     tl: '',
     atl: '',
-    hostnames: [],
+    hostnames: [''],
+    keepCentered: false,
   };
-  bslocal.get(['targetLang', 'altTargetLang', 'hostnames']).then((res) => {
+  bslocal.get(['targetLang', 'altTargetLang', 'hostnames', 'keepCentered']).then((res) => {
     config.tl = res.targetLang;
     config.atl = res.altTargetLang;
     config.hostnames = res.hostnames;
+    config.keepCentered = res.keepCentered;
   });
 
   function updateTargetLang(e: Event) {
@@ -55,6 +57,10 @@
       altTargetLang: val,
       targetLang: config.tl,
     });
+  }
+
+  $: {
+    bslocal.set({ keepCentered: config.keepCentered });
   }
 
   function updateBlocklist(e: Event) {
@@ -111,6 +117,12 @@
       </select>
     </div>
     <div class="opt-row">
+      <label>
+        <input type="checkbox" bind:checked={config.keepCentered} />
+        Keep translation popup fixed and centered
+      </label>
+    </div>
+    <div class="opt-row">
       <label for="blocklist">{gm('disabledIn')}: </label>
       <textarea
         on:input={handleInput}
@@ -121,6 +133,7 @@
         value={config.hostnames.join('\n')}
       />
     </div>
+    <p class="note">*change is auto saved</p>
   </main>
 </div>
 
@@ -134,10 +147,15 @@
   }
 
   .opt-row {
-    margin: 0 1px 40px 15px;
+    margin: 0 1px 25px 15px;
   }
 
   .opt-row label {
     display: block;
+  }
+
+  .note {
+    font-size: 0.8em;
+    text-align: center;
   }
 </style>
