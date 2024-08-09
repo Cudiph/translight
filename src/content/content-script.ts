@@ -2,6 +2,19 @@ import Result from '../popup/Result.svelte';
 import browser from 'webextension-polyfill';
 
 const gm = browser.i18n.getMessage;
+let active = true;
+
+// fetch data
+(async () => {
+  const activetab: browser.Tabs.Tab = await browser.runtime.sendMessage({ name: 'active-tab' });
+  const { hostnames } = await browser.storage.local.get('hostnames'); // blocklist
+  const hostname = new URL(activetab.url || '').hostname;
+  if (hostnames.includes(hostname)) active = false;
+})();
+browser.runtime.onMessage.addListener((req) => {
+  if (req.name !== 'active-toggle') return;
+  active = req.active;
+});
 
 // stolen method
 function getSelectionText() {
@@ -111,10 +124,7 @@ let container: HTMLDivElement | null;
 let tooltip: HTMLDivElement;
 let isTranslating = false;
 document.addEventListener('mouseup', async (e) => {
-  const activetab: browser.Tabs.Tab = await browser.runtime.sendMessage({ name: 'active-tab' });
-  const { hostnames } = await browser.storage.local.get('hostnames'); // blocklist
-  const hostname = new URL(activetab.url || '').hostname;
-  if (hostnames.includes(hostname)) return;
+  if (!active) return;
 
   const selected = getSelectionText();
 

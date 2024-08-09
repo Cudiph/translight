@@ -24,7 +24,7 @@
     else isPopup = false;
   });
 
-  function handlePowerClick(_: Event) {
+  async function handlePowerClick(_: Event) {
     active = !active;
 
     if (active) {
@@ -36,6 +36,11 @@
     browser.storage.local.set({
       hostnames: blocklist,
     });
+
+    const [activeTab] = await p1;
+    if (activeTab.id) {
+      browser.tabs.sendMessage(activeTab.id, { name: 'active-toggle', active });
+    }
   }
 
   function handleDetachClick(_: Event) {
