@@ -65,7 +65,7 @@ browser.commands.onCommand.addListener(async (cmd) => {
     browser.tabs.create({ url: link });
   } else if (cmd === 'activation-switch') {
     const [tab] = await browser.tabs.query({ active: true, lastFocusedWindow: true });
-    const hostname = new URL(tab.url).hostname;
+    const hostname = new URL(tab.url || '').hostname;
     let { hostnames } = await bslocal.get('hostnames');
 
     if (hostnames.includes(hostname)) {

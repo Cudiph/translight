@@ -9,7 +9,7 @@
     "build:content": "vite build --config vite.content.config.ts",
     "dev": "export NODE_ENV=dev || set NODE_ENV=dev&& npm run build:manifest && vite build",
     "dev:content": "export NODE_ENV=dev || set NODE_ENV=dev&& npm run build:content",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "check": "svelte-check --tsconfig ./tsconfig.json && npm run lint",
     "format": "prettier --write .",
     "lint": "prettier --check ."
   },

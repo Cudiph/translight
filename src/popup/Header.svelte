@@ -13,7 +13,7 @@
   Promise.all([p1, p2]).then((vals) => {
     const [[tab], { hostnames }] = vals;
     blocklist = hostnames;
-    hostname = new URL(tab.url).hostname;
+    hostname = new URL(tab.url || '').hostname;
 
     if (hostnames.includes(hostname)) active = false;
     else active = true;

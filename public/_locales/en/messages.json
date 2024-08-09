@@ -59,6 +59,9 @@
   "synonyms": {
     "message": "Synonyms"
   },
+  "keepCenteredDescription": {
+    "message": "Keep translation popup fixed and centered"
+  },
   "disabledIn": {
     "message": "Extension Disabled In"
   },

@@ -251,7 +251,7 @@
       >
     {/if}
     {#if res.isCorrected}
-      <p>{@html sanitizeAndGiveBreak(res.corrected)}</p>
+      <p>{@html sanitizeAndGiveBreak(res.corrected || '')}</p>
     {:else}
       <p>{@html sanitizeAndGiveBreak(res.sourceText)}</p>
     {/if}

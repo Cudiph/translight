@@ -82,8 +82,11 @@
     }, 500);
   }
 
-  function request_perms() {
-    browser.permissions.request(page_query);
+  async function request_perms() {
+    await browser.permissions.request(page_query);
+    browser.permissions.contains(page_query).then((res) => {
+      has_all_perms = res;
+    });
   }
 </script>
 
@@ -119,7 +122,7 @@
     <div class="opt-row">
       <label>
         <input type="checkbox" bind:checked={config.keepCentered} />
-        Keep translation popup fixed and centered
+        {gm('keepCenteredDescription')}
       </label>
     </div>
     <div class="opt-row">

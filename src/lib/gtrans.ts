@@ -146,8 +146,8 @@ type PartOfSpeechTranslation = {
 };
 
 export interface ReadableFormat {
-  translated?: string;
-  sourceText?: string;
+  translated: string;
+  sourceText: string;
   from: string;
   altFrom: string;
   to: string;
@@ -205,12 +205,12 @@ async function translate(text: string, options: TransOptions): Promise<ReadableF
         : 'auto',
     altFrom: jsonRes[2],
     to: to,
+    sourceText: '',
+    translated: '',
   };
 
   // push translated and sourceText
   if (jsonRes[0]) {
-    readable.translated = '';
-    readable.sourceText = '';
     for (const iter of jsonRes[0]) {
       if (iter[0]) readable.translated += iter[0];
       if (iter[1]) readable.sourceText += iter[1];

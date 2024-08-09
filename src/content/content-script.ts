@@ -14,9 +14,9 @@ function getSelectionText() {
       /^(?:text|search|password|tel|url)$/i.test(activeEl.type) &&
       typeof activeEl.selectionStart == 'number')
   ) {
-    text = activeEl.value.slice(activeEl.selectionStart, activeEl.selectionEnd);
+    text = activeEl.value.slice(activeEl.selectionStart || 0, activeEl.selectionEnd || 0);
   } else if (window.getSelection) {
-    text = window.getSelection()?.toString();
+    text = window.getSelection()?.toString() || '';
   }
   return text;
 }
@@ -106,7 +106,6 @@ function observerCallback(entries: ResizeObserverEntry[]) {
   target.style.top = `${window.innerHeight / 2 - targetBounds.height / 2}px`;
 }
 
-
 // event handler to handle whether inline popup should work as expected
 let container: HTMLDivElement | null;
 let tooltip: HTMLDivElement;
@@ -143,7 +142,10 @@ document.addEventListener('mouseup', async (e) => {
 
   // show result when the icon tooltip is clicked
   tooltip.onclick = async (_) => {
-    const { targetLang, keepCentered } = await browser.storage.local.get(['targetLang', 'keepCentered']);
+    const { targetLang, keepCentered } = await browser.storage.local.get([
+      'targetLang',
+      'keepCentered',
+    ]);
 
     isTranslating = true;
     tooltip.remove();
@@ -172,11 +174,9 @@ document.addEventListener('mouseup', async (e) => {
     });
 
     if (keepCentered) {
-      const resizeObserver = new ResizeObserver(observerCallback)
+      const resizeObserver = new ResizeObserver(observerCallback);
       resizeObserver.observe(container);
-    };
-
-
+    }
   };
 });
 
